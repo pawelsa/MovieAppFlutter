@@ -2,5 +2,11 @@
   "helloWorld": "Hello World!",
   "@helloWorld": {
     "description": "The conventional newborn programmer greeting"
-  }
+  },
+  "appBarMovies": "Movies",
+  "@appBarMovies": {},
+  "appBarTvShows": "Movies",
+  "@appBarTvShows": {},
+  "appBarProfile": "Movies",
+  "@appBarProfile": {}
 }

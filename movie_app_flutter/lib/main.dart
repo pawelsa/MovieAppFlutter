@@ -1,12 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_app_flutter/pages/main/main_page.dart';
 import 'package:movie_app_flutter/resources/colors.dart';
 
 const fontItcAvantGardeStd = 'itc_avant_garde_std';
+const fontEthnocentric = 'Ethnocentric';
+
+class Logger extends ProviderObserver {
+  @override
+  void didUpdateProvider(ProviderBase provider, Object? newValue) {
+    if (newValue is StateController<int>) {
+      print(
+          '[${provider.name ?? provider.runtimeType}] value: ${newValue.state}');
+    }
+  }
+}
 
 void main() {
-  runApp(ProviderScope(child: MyApp()));
+  runApp(
+    ProviderScope(
+      observers: [
+        Logger(),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -19,7 +38,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        textTheme: textTheme!.copyWith(
+        textTheme: textTheme.copyWith(
           headline1: textTheme.headline1!.copyWith(
             fontFamily: fontItcAvantGardeStd,
             fontWeight: FontWeight.w600,
@@ -70,57 +89,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({this.title = ""}) : super();
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(AppLocalizations.of(context)!.helloWorld),
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
+      home: MainPage(),
     );
   }
 }

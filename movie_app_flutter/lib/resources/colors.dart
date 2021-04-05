@@ -9,7 +9,12 @@ class MovieColors {
   static const backgroundStart = Colors.white;
   static const backgroundEnd = const Color(0xFFE7E7E7);
   static const greyButton = const Color(0xFFEAEAEA);
-// static const pageGradient = Brush.linearGradient(
-//     colors = listOf(backgroundStart, backgroundEnd)
-// )
+  static const pageGradient = LinearGradient(
+    colors: [
+      MovieColors.backgroundStart,
+      MovieColors.backgroundEnd,
+    ],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
 }
