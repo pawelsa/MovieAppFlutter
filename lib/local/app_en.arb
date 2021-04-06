@@ -8,5 +8,21 @@
   "appBarTvShows": "Movies",
   "@appBarTvShows": {},
   "appBarProfile": "Movies",
-  "@appBarProfile": {}
+  "@appBarProfile": {},
+  "director": "Director: {director}",
+  "@director": {
+    "placeholders": {
+      "director": {
+        "type": "String"
+      }
+    }
+  },
+  "stars": "Stars: {stars}",
+  "@stars": {
+    "placeholders": {
+      "stars": {
+        "type": "String"
+      }
+    }
+  }
 }

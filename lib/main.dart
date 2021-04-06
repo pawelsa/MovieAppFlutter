@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(
+        brightness: Brightness.light,
         primarySwatch: Colors.blue,
         textTheme: textTheme.copyWith(
           headline1: textTheme.headline1!.copyWith(
@@ -45,13 +46,14 @@ class MyApp extends StatelessWidget {
             color: MovieColors.greyText,
           ),
           headline2: textTheme.headline2!.copyWith(
-            fontFamily: fontItcAvantGardeStd,
-            fontWeight: FontWeight.w700,
-            color: Colors.black,
-          ),
+              fontFamily: fontItcAvantGardeStd,
+              fontWeight: FontWeight.w700,
+              color: Colors.black,
+              fontSize: 20),
           headline3: textTheme.headline3!.copyWith(
             fontFamily: fontItcAvantGardeStd,
             color: MovieColors.greyText,
+            fontSize: 14.0,
           ),
           headline4: textTheme.headline4!.copyWith(
             fontFamily: fontItcAvantGardeStd,
