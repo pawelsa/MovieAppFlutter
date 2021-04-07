@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
             fontFamily: fontItcAvantGardeStd,
             fontWeight: FontWeight.w600,
             color: MovieColors.greyText,
-          ),
+            fontSize: 90),
           headline2: textTheme.headline2!.copyWith(
               fontFamily: fontItcAvantGardeStd,
               fontWeight: FontWeight.w700,
@@ -61,10 +61,11 @@ class MyApp extends StatelessWidget {
             color: Colors.black,
           ),
           headline5: textTheme.headline5!.copyWith(
-            fontFamily: fontItcAvantGardeStd,
-            fontWeight: FontWeight.w400,
-            color: MovieColors.greyText,
-          ),
+              fontFamily: fontItcAvantGardeStd,
+              fontWeight: FontWeight.w500,
+              color: MovieColors.greyText,
+              fontSize: 16,
+              height: 1.6),
           headline6: textTheme.headline6!.copyWith(
             fontFamily: fontItcAvantGardeStd,
           ),
@@ -78,9 +79,10 @@ class MyApp extends StatelessWidget {
             fontFamily: fontItcAvantGardeStd,
           ),
           button: textTheme.button!.copyWith(
-            fontFamily: fontItcAvantGardeStd,
-            color: Colors.white,
-          ),
+              fontFamily: fontItcAvantGardeStd,
+              fontWeight: FontWeight.w700,
+              color: Colors.white,
+              fontSize: 16),
           caption: textTheme.caption!.copyWith(
             fontFamily: fontItcAvantGardeStd,
             color: MovieColors.greyText,

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_app_flutter/pages/detail/detail_page.dart';
 import 'package:movie_app_flutter/pages/main/main_app_bar.dart';
 import 'package:movie_app_flutter/pages/main/main_bottom_bar.dart';
 import 'package:movie_app_flutter/pages/movie/movie_page.dart';
+import 'package:movie_app_flutter/pages/tv_show/tv_show_page.dart';
 import 'package:movie_app_flutter/resources/colors.dart';
 
 final pageProvider = StateProvider((ref) => AppPage.MOVIE);
@@ -40,20 +42,17 @@ class _MainPage extends ConsumerWidget {
   }
 }
 
-class TvShowPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text("TvShow"),
-    );
-  }
-}
-
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("Profile"),
+    return DetailPage(
+      content: ContentData(
+        "Title",
+        "8.0",
+        "Michael",
+        "Michael / Lopez",
+        "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+      ),
     );
   }
 }

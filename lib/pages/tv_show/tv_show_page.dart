@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_app_flutter/common/extensions.dart';
+import 'package:movie_app_flutter/pages/movie/movie_page.dart';
 import 'package:movie_app_flutter/widgets/base_tabbed_page.dart';
 
 final _pageProvider = StateProvider((ref) => 0);
 
-final _nowPopularMoviesProvider = StateProvider((ref) => List.generate(
+final _nowPopularTvShowsProvider = StateProvider((ref) => List.generate(
       10,
       (index) => ContentData(
         "Title",
@@ -16,7 +17,7 @@ final _nowPopularMoviesProvider = StateProvider((ref) => List.generate(
       ),
     ));
 
-final _theUpcomingMoviesProvider = StateProvider((ref) => List.generate(
+final _theTopRatedTvShowsProvider = StateProvider((ref) => List.generate(
       10,
       (index) => ContentData(
         "Title",
@@ -27,34 +28,23 @@ final _theUpcomingMoviesProvider = StateProvider((ref) => List.generate(
       ),
     ));
 
-final _moviesProvider = StateProvider<List<List<ContentData>>>((ref) {
-  final nowPopular = ref.watch(_nowPopularMoviesProvider).state;
-  final theUpcoming = ref.watch(_theUpcomingMoviesProvider).state;
-  return <List<ContentData>>[nowPopular, theUpcoming];
+final _tvShowsProvider = StateProvider<List<List<ContentData>>>((ref) {
+  final nowPopular = ref.watch(_nowPopularTvShowsProvider).state;
+  final topRated = ref.watch(_theTopRatedTvShowsProvider).state;
+  return <List<ContentData>>[nowPopular, topRated];
 });
 
-class ContentData {
-  final String title;
-  final String grade;
-  final String director;
-  final String stars;
-  final String posterPath;
-
-  ContentData(
-      this.title, this.grade, this.director, this.stars, this.posterPath);
-}
-
-class MoviePage extends StatelessWidget {
+class TvShowPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tabs = <String>[
-      context.text.moviesTabNowPopular,
-      context.text.moviesTabTheUpcoming,
+      context.text.tvShowsTabNowPopular,
+      context.text.tvShowsTabTopRated,
     ];
 
     return BaseTabbedPage(
       pageProvider: _pageProvider,
-      contentProvider: _moviesProvider,
+      contentProvider: _tvShowsProvider,
       tabs: tabs,
     );
   }

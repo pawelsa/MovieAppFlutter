@@ -24,5 +24,13 @@
         "type": "String"
       }
     }
-  }
+  },
+  "moviesTabNowPopular": "Now popular",
+  "@moviesTabNowPopular": {},
+  "moviesTabTheUpcoming": "The upcoming",
+  "@moviesTabTheUpcoming": {},
+  "tvShowsTabNowPopular": "Now popular",
+  "@tvShowsTabNowPopular": {},
+  "tvShowsTabTopRated": "Top rated",
+  "@tvShowsTabTopRated": {}
 }

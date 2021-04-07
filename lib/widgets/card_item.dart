@@ -6,10 +6,12 @@ import 'package:movie_app_flutter/resources/dimen.dart';
 
 class CardItem extends StatelessWidget {
   final ContentData content;
+  final GestureTapCallback onTap;
   final double width;
 
   const CardItem({
     Key? key,
+    required this.onTap,
     required this.content,
     required this.width,
   }) : super(key: key);
@@ -20,95 +22,112 @@ class CardItem extends StatelessWidget {
     final posterHeight = posterWidth / Dimen.posterAspectRatio;
 
     // TODO make prettier inkWell
-    return InkWell(
-      onTap: () {},
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: Dimen.cardItemHorizontalPadding,
-          vertical: Dimen.cardItemVerticalPadding,
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-              bottom: 0.0,
-              left: 0.0,
-              right: 0.0,
-              child: Container(
-                padding: EdgeInsets.symmetric(
-                  vertical: Dimen.cardItemColumnVerticalPadding,
-                ),
-                decoration: BoxDecoration(
+    return Container(
+      padding: const EdgeInsets.all(Dimen.paddingMedium),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(Dimen.cardItemBorderRadius),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: Dimen.cardItemHorizontalPadding,
+            vertical: Dimen.cardItemVerticalPadding,
+          ),
+          child: Stack(
+            children: [
+              Positioned(
+                bottom: 0.0,
+                left: 0.0,
+                right: 0.0,
+                child: Material(
                   color: Colors.white,
+                  elevation: 1.0,
                   borderRadius:
                       BorderRadius.circular(Dimen.cardItemBorderRadius),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    SizedBox(
-                      width: posterWidth +
-                          2 * Dimen.cardItemPosterHorizontalPadding,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: Dimen.cardItemColumnVerticalPadding,
                     ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        SizedBox(
+                          width: posterWidth +
+                              2 * Dimen.cardItemPosterHorizontalPadding,
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(
-                                  child: Text(
-                                content.title,
-                                style: Theme.of(context).textTheme.headline2,
-                              )),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal:
-                                      Dimen.cardItemPosterHorizontalPadding,
-                                ),
-                                child: Text(
-                                  content.grade,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline2!
-                                      .copyWith(color: MovieColors.yellow),
-                                ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                      child: Text(
+                                    content.title,
+                                    style:
+                                        Theme.of(context).textTheme.headline2,
+                                  )),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal:
+                                          Dimen.cardItemPosterHorizontalPadding,
+                                    ),
+                                    child: Text(
+                                      content.grade,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline2!
+                                          .copyWith(color: MovieColors.yellow),
+                                    ),
+                                  ),
+                                ],
                               ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 2.0),
+                                child: Text("categories"),
+                              ),
+                              Text(
+                                context.text.director(content.director),
+                                style: Theme.of(context).textTheme.headline3,
+                              ),
+                              Text(
+                                context.text.stars(content.stars),
+                                style: Theme.of(context).textTheme.headline3,
+                              )
                             ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 2.0),
-                            child: Text("categories"),
-                          ),
-                          Text(
-                            context.text.director(content.director),
-                            style: Theme.of(context).textTheme.headline3,
-                          ),
-                          Text(
-                            context.text.stars(content.stars),
-                            style: Theme.of(context).textTheme.headline3,
-                          )
-                        ],
-                      ),
-                    )
-                  ],
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(
-                left: Dimen.cardItemPosterHorizontalPadding,
-                bottom: Dimen.itemPosterVerticalPadding,
-              ),
-              width: posterWidth,
-              height: posterHeight,
-              decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.circular(Dimen.cardItemBorderRadius),
-              ),
-            )
-          ],
+              Padding(
+                padding: EdgeInsets.only(
+                  left: Dimen.cardItemPosterHorizontalPadding,
+                  bottom: Dimen.itemPosterVerticalPadding,
+                ),
+                child: Material(
+                  elevation: Dimen.cardItemPosterElevation,
+                  borderRadius:
+                      BorderRadius.circular(Dimen.cardItemBorderRadius),
+                  clipBehavior: Clip.hardEdge,
+                  child: Container(
+                    height: posterHeight,
+                    width: posterWidth,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                      image: NetworkImage(content.posterPath),
+                      fit: BoxFit.cover,
+                    )),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
