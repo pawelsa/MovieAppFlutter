@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_app_flutter/resources/colors.dart';
 import 'package:movie_app_flutter/resources/dimen.dart';
 
-class MovieTabPager extends StatelessWidget {
+class MovieTabPager extends ConsumerWidget {
+  final StateProvider<int> pageProvider;
   final List<String> tabs;
-  final int currentPage;
-  final Function(int) onTabPressed;
   final Color? backgroundColor;
 
-  const MovieTabPager(
-      {Key? key,
-      required this.tabs,
-      required this.currentPage,
-      required this.onTabPressed,
-      this.backgroundColor})
-      : super(key: key);
+  const MovieTabPager({
+    Key? key,
+    required this.tabs,
+    required this.pageProvider,
+    this.backgroundColor,
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
+    final currentPage = watch(pageProvider).state;
     return Row(
       children: tabs
           .map(
@@ -25,13 +25,15 @@ class MovieTabPager extends StatelessWidget {
               context,
               tabText,
               tabs.indexOf(tabText),
+              currentPage,
             ),
           )
           .toList(),
     );
   }
 
-  Widget _buildTab(BuildContext context, String tabText, int index) {
+  Widget _buildTab(
+      BuildContext context, String tabText, int index, int currentPage) {
     final isSelected = index == currentPage;
     final selectedStyle = Theme.of(context).textTheme.headline2!;
     final notSelectedStyle =
@@ -43,7 +45,7 @@ class MovieTabPager extends StatelessWidget {
         children: [
           InkWell(
             borderRadius: BorderRadius.circular(4.0),
-            onTap: () => onTabPressed(index),
+            onTap: () => context.read(pageProvider).state = index,
             child: Padding(
               padding: const EdgeInsets.all(Dimen.tabTextPadding),
               child: Text(

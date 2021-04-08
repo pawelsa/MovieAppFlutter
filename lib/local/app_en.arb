@@ -32,5 +32,21 @@
   "tvShowsTabNowPopular": "Now popular",
   "@tvShowsTabNowPopular": {},
   "tvShowsTabTopRated": "Top rated",
-  "@tvShowsTabTopRated": {}
+  "@tvShowsTabTopRated": {},
+  "nothingToShow": "There is nothing to show",
+  "@nothingToShow": {},
+  "detailComments": "Comments",
+  "@detailComments": {},
+  "detailDiscuss": "Discuss",
+  "@detailDiscuss": {},
+  "detailIntroduction": "Introduction",
+  "@detailIntroduction": {},
+  "detailCollect": "Collect",
+  "@detailCollect": {},
+  "detailBuyNow": "Buy now",
+  "@detailBuyNow": {},
+  "detailActors": "Actors",
+  "@detailActors": {},
+  "detailSeeAllActors": "See all",
+  "@detailSeeAllActors": {}
 }

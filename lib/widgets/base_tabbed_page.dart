@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_app_flutter/pages/detail/detail_actors.dart';
 import 'package:movie_app_flutter/pages/detail/detail_page.dart';
 import 'package:movie_app_flutter/pages/movie/movie_page.dart';
+import 'package:movie_app_flutter/resources/durations.dart';
 import 'package:movie_app_flutter/widgets/card_item.dart';
 import 'package:movie_app_flutter/widgets/tab_pager.dart';
 
-class BaseTabbedPage extends ConsumerWidget {
+class BaseTabbedPage extends StatelessWidget {
   final _pageController = PageController();
   final StateProvider<int> pageProvider;
   final StateProvider<List<List<ContentData>>> contentProvider;
@@ -19,15 +21,17 @@ class BaseTabbedPage extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final currentPage = watch(pageProvider).state;
+  Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
     return ProviderListener<StateController<int>>(
       provider: pageProvider,
       onChange: (context, provider) {
-        _pageController.animateToPage(provider.state,
-            duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
+        _pageController.animateToPage(
+          provider.state,
+          duration: Durations.pageChange,
+          curve: Curves.easeInOut,
+        );
       },
       child: Column(
         children: [
@@ -37,9 +41,8 @@ class BaseTabbedPage extends ConsumerWidget {
               top: 20.0,
             ),
             child: MovieTabPager(
-              currentPage: currentPage,
+              pageProvider: pageProvider,
               tabs: tabs,
-              onTabPressed: (index) => context.read(pageProvider).state = index,
             ),
           ),
           Expanded(
@@ -77,7 +80,72 @@ class BaseTabbedPage extends ConsumerWidget {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => DetailPage(
-          content: content,
+          content: ContentDetailData(
+            "Title",
+            "8.0",
+            "Michael",
+            "Michael / Lopez",
+            "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+            "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+            "Chihiro and mom and dad drove to their new home together, in the outskurts of the road accidentally into the mysteriuus tunnel - they went to another strange...",
+            false,
+            [
+              Person(
+                  "Imie nazwisko",
+                  "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+                  "actor"),
+              Person(
+                  "Imie nazwisko",
+                  "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+                  "actor"),
+              Person(
+                  "Imie nazwisko",
+                  "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+                  "actor"),
+              Person(
+                  "Imie nazwisko",
+                  "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+                  "actor"),
+              Person(
+                  "Imie nazwisko",
+                  "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+                  "actor"),
+              Person(
+                  "Imie nazwisko",
+                  "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+                  "actor")
+            ],
+            [
+              Person(
+                  "Imie nazwisko",
+                  "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+                  "actor"),
+              Person(
+                  "Imie nazwisko",
+                  "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+                  "actor"),
+              Person(
+                  "Imie nazwisko",
+                  "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+                  "actor"),
+              Person(
+                  "Imie nazwisko",
+                  "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+                  "actor"),
+              Person(
+                  "Imie nazwisko",
+                  "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+                  "actor"),
+              Person(
+                  "Imie nazwisko",
+                  "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+                  "actor"),
+              Person(
+                  "Imie nazwisko",
+                  "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+                  "actor"),
+            ],
+          ),
         ),
       ),
     );

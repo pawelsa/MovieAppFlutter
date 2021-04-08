@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_app_flutter/pages/detail/detail_actors.dart';
 import 'package:movie_app_flutter/pages/detail/detail_page.dart';
 import 'package:movie_app_flutter/pages/main/main_app_bar.dart';
 import 'package:movie_app_flutter/pages/main/main_bottom_bar.dart';
@@ -46,12 +47,71 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DetailPage(
-      content: ContentData(
+      content: ContentDetailData(
         "Title",
         "8.0",
         "Michael",
         "Michael / Lopez",
         "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+        "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+        "Chihiro and mom and dad drove to their new home together, in the outskurts of the road accidentally into the mysteriuus tunnel - they went to another strange...",
+        false,
+        [
+          Person(
+              "Imie nazwisko",
+              "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+              "actor"),
+          Person(
+              "Imie nazwisko",
+              "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+              "actor"),
+          Person(
+              "Imie nazwisko",
+              "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+              "actor"),
+          Person(
+              "Imie nazwisko",
+              "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+              "actor"),
+          Person(
+              "Imie nazwisko",
+              "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+              "actor"),
+          Person(
+              "Imie nazwisko",
+              "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+              "actor")
+        ],
+        [
+          Person(
+              "Imie nazwisko",
+              "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+              "actor"),
+          Person(
+              "Imie nazwisko",
+              "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+              "actor"),
+          Person(
+              "Imie nazwisko",
+              "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+              "actor"),
+          Person(
+              "Imie nazwisko",
+              "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+              "actor"),
+          Person(
+              "Imie nazwisko",
+              "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+              "actor"),
+          Person(
+              "Imie nazwisko",
+              "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+              "actor"),
+          Person(
+              "Imie nazwisko",
+              "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
+              "actor"),
+        ],
       ),
     );
   }
