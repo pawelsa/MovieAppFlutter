@@ -74,6 +74,9 @@ class MyApp extends StatelessWidget {
           ),
           bodyText1: textTheme.bodyText1!.copyWith(
             fontFamily: fontItcAvantGardeStd,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+            color: Colors.black,
           ),
           bodyText2: textTheme.bodyText2!.copyWith(
             fontFamily: fontItcAvantGardeStd,

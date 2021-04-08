@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_flutter/common/extensions.dart';
+import 'package:movie_app_flutter/pages/actors/actors_page.dart';
 import 'package:movie_app_flutter/pages/detail/detail_actors.dart';
 import 'package:movie_app_flutter/pages/detail/detail_actors_headline.dart';
 import 'package:movie_app_flutter/pages/detail/detail_buttons.dart';
 import 'package:movie_app_flutter/pages/detail/detail_page.dart';
+import 'package:movie_app_flutter/resources/colors.dart';
 import 'package:movie_app_flutter/resources/dimen.dart';
 
 class DetailInfoPanel extends StatelessWidget {
@@ -18,7 +20,7 @@ class DetailInfoPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Container(
-      color: Colors.white,
+      decoration: BoxDecoration(gradient: MovieColors.pageGradient),
       child: Padding(
         padding: const EdgeInsets.symmetric(
             horizontal: Dimen.detailInfoHorizontalPadding),
@@ -41,7 +43,11 @@ class DetailInfoPanel extends StatelessWidget {
               ),
             ),
             ButtonRow(),
-            ActorsHeadline(),
+            ActorsHeadline(
+              onShowMore: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) =>
+                      ActorsPage(contentDetailData: content))),
+            ),
             ActorsSection(
               actors: content.cast,
             ),

@@ -5,9 +5,9 @@
   },
   "appBarMovies": "Movies",
   "@appBarMovies": {},
-  "appBarTvShows": "Movies",
+  "appBarTvShows": "Tv Shows",
   "@appBarTvShows": {},
-  "appBarProfile": "Movies",
+  "appBarProfile": "Profile",
   "@appBarProfile": {},
   "director": "Director: {director}",
   "@director": {
@@ -48,5 +48,9 @@
   "detailActors": "Actors",
   "@detailActors": {},
   "detailSeeAllActors": "See all",
-  "@detailSeeAllActors": {}
+  "@detailSeeAllActors": {},
+  "actorsCast": "Cast",
+  "@actorsCast": {},
+  "actorsCrew": "Crew",
+  "@actorsCrew": {}
 }

@@ -21,7 +21,7 @@ class DetailAppBar extends StatelessWidget {
               },
               customBorder: CircleBorder(),
               child: Container(
-                padding: const EdgeInsets.all(Dimen.detailActionBarIconPadding),
+                padding: const EdgeInsets.all(Dimen.iconPadding),
                 child: Icon(
                   Icons.arrow_back,
                   color: Colors.white,
@@ -36,7 +36,7 @@ class DetailAppBar extends StatelessWidget {
               onTap: () {},
               customBorder: CircleBorder(),
               child: Container(
-                padding: const EdgeInsets.all(Dimen.detailActionBarIconPadding),
+                padding: const EdgeInsets.all(Dimen.iconPadding),
                 child: Icon(
                   Icons.more_horiz,
                   color: Colors.white,

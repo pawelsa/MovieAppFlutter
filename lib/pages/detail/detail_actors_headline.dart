@@ -4,6 +4,10 @@ import 'package:movie_app_flutter/resources/colors.dart';
 import 'package:movie_app_flutter/resources/dimen.dart';
 
 class ActorsHeadline extends StatelessWidget {
+  final GestureTapCallback onShowMore;
+
+  const ActorsHeadline({Key? key, required this.onShowMore}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -17,7 +21,7 @@ class ActorsHeadline extends StatelessWidget {
             style: textTheme.headline2,
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: onShowMore,
             child: Row(
               children: [
                 Text(

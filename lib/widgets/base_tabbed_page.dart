@@ -37,8 +37,8 @@ class BaseTabbedPage extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(
-              left: 12.0,
-              top: 20.0,
+              left: 17.0,
+              top: 4.0,
             ),
             child: MovieTabPager(
               pageProvider: pageProvider,

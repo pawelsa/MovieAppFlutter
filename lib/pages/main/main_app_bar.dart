@@ -10,7 +10,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
     return SafeArea(
       child: Container(
         alignment: Alignment.center,
-        padding: const EdgeInsets.only(left: 16.0),
+        padding: const EdgeInsets.only(left: 18.0),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

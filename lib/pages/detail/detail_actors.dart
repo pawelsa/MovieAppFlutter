@@ -21,13 +21,13 @@ class ActorsSection extends StatelessWidget {
     return Row(
       children: actors
           .map(
-            (person) => _buildItem(person),
+            (person) => _buildItem(context, person),
           )
           .toList(),
     );
   }
 
-  Expanded _buildItem(Person person) {
+  Expanded _buildItem(BuildContext context, Person person) {
     return Expanded(
       child: Column(
         children: [
@@ -44,7 +44,16 @@ class ActorsSection extends StatelessWidget {
               ),
             ),
           ),
-          Text(person.name)
+          Text(
+            person.name,
+            style: Theme.of(context).textTheme.bodyText1,
+            textAlign: TextAlign.center,
+          ),
+          Text(
+            person.position,
+            style: Theme.of(context).textTheme.headline3,
+            textAlign: TextAlign.center,
+          )
         ],
       ),
     );
