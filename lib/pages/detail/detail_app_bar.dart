@@ -6,7 +6,9 @@ class DetailAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: Dimen.detailActionBarHeight,
-      margin: const EdgeInsets.only(top: Dimen.detailActionBarTopMargin),
+      margin: EdgeInsets.only(
+          top: MediaQuery.of(context).padding.top +
+              Dimen.detailActionBarTopMargin),
       padding: const EdgeInsets.symmetric(
           horizontal: Dimen.detailActionBarHorizontalPadding),
       child: Row(

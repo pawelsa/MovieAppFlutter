@@ -36,7 +36,7 @@ class Dimen {
   static const double detailButtonBorderRadius = 14.0;
   static const double detailCollectButtonHorizontalPadding = 24.0;
   static const double iconPadding = 8.0;
-  static const double detailActionBarTopMargin = 32.0;
+  static const double detailActionBarTopMargin = 16.0;
   static const double detailActionBarHorizontalPadding = 24.0;
   static const double detailActionBarHeight = 56.0;
   static const double detailHeadlineTopPadding = 14.0;
