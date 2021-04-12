@@ -75,7 +75,7 @@ class CardItem extends StatelessWidget {
                                           Dimen.cardItemPosterHorizontalPadding,
                                     ),
                                     child: Text(
-                                      content.grade,
+                                      content.grade.toString(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .headline2!
@@ -119,10 +119,16 @@ class CardItem extends StatelessWidget {
                     height: posterHeight,
                     width: posterWidth,
                     decoration: BoxDecoration(
-                        image: DecorationImage(
-                      image: NetworkImage(content.posterPath),
-                      fit: BoxFit.cover,
-                    )),
+                      image: content.posterPath != null
+                          ? DecorationImage(
+                              image: NetworkImage(content.posterPath!.path),
+                              fit: BoxFit.cover,
+                            )
+                          : null,
+                      color: content.posterPath == null
+                          ? MovieColors.noImage
+                          : null,
+                    ),
                   ),
                 ),
               )

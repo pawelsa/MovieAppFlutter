@@ -39,12 +39,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.light,
         primarySwatch: Colors.blue,
+        accentColor: MovieColors.yellow,
         textTheme: textTheme.copyWith(
           headline1: textTheme.headline1!.copyWith(
-            fontFamily: fontItcAvantGardeStd,
-            fontWeight: FontWeight.w600,
-            color: MovieColors.greyText,
-            fontSize: 90),
+              fontFamily: fontItcAvantGardeStd,
+              fontWeight: FontWeight.w600,
+              color: MovieColors.greyText,
+              fontSize: 90),
           headline2: textTheme.headline2!.copyWith(
               fontFamily: fontItcAvantGardeStd,
               fontWeight: FontWeight.w700,

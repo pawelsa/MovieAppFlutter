@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_flutter/common/extensions.dart';
 import 'package:movie_app_flutter/pages/movie/movie_page.dart';
+import 'package:movie_app_flutter/resources/colors.dart';
 import 'package:movie_app_flutter/resources/dimen.dart';
 
 class DetailHeader extends StatelessWidget {
@@ -29,29 +30,32 @@ class DetailHeader extends StatelessWidget {
               left: posterWidth + 2 * Dimen.detailPosterLeftPadding,
               bottom: Dimen.detailPosterBottomPadding,
               top: Dimen.detailInfoTopPadding,
+              right: Dimen.detailPosterLeftPadding,
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      content.title,
-                      style: textTheme.headline2,
-                    ),
-                    Text("categories"),
-                    Text(
-                      context.text.director(content.director),
-                      style: textTheme.headline3,
-                    ),
-                    Text(
-                      context.text.stars(content.stars),
-                      style: textTheme.headline3,
-                    ),
-                    Text(content.grade),
-                  ],
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        content.title,
+                        style: textTheme.headline2,
+                      ),
+                      Text("categories"),
+                      Text(
+                        context.text.director(content.director),
+                        style: textTheme.headline3,
+                      ),
+                      Text(
+                        context.text.stars(content.stars),
+                        style: textTheme.headline3,
+                      ),
+                      Text(content.grade.toString()),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -69,11 +73,15 @@ class DetailHeader extends StatelessWidget {
             child: Container(
               height: posterHeight,
               width: posterWidth,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                image: NetworkImage(content.posterPath),
-                fit: BoxFit.cover,
-              )),
+              decoration: content.posterPath != null
+                  ? BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(content.posterPath!.path),
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : null,
+              color: content.posterPath == null ? MovieColors.noImage : null,
             ),
           ),
         ),

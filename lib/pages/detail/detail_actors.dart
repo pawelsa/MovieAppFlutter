@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app_flutter/common/extensions.dart';
+import 'package:movie_app_flutter/resources/colors.dart';
 import 'package:movie_app_flutter/resources/dimen.dart';
 
 class Person {
   final String name;
-  final String profilePath;
+  final String? profilePath;
   final String position;
 
   Person(this.name, this.profilePath, this.position);
@@ -19,6 +21,7 @@ class ActorsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: actors
           .map(
             (person) => _buildItem(context, person),
@@ -38,10 +41,13 @@ class ActorsSection extends StatelessWidget {
             width: Dimen.detailActorsImageSize,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(person.profilePath),
-              ),
+              image: person.profilePath != null
+                  ? DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(person.profilePath!.path),
+                    )
+                  : null,
+              color: person.profilePath == null ? MovieColors.noImage : null,
             ),
           ),
           Text(

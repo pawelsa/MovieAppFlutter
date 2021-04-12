@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_app_flutter/common/extensions.dart';
 import 'package:movie_app_flutter/pages/movie/movie_page.dart';
-import 'package:movie_app_flutter/widgets/base_tabbed_page.dart';
 
 final _pageProvider = StateProvider((ref) => 0);
 
@@ -10,7 +7,7 @@ final _nowPopularTvShowsProvider = StateProvider((ref) => List.generate(
       10,
       (index) => ContentData(
         "Title",
-        "8.0",
+        8.0,
         "Michael",
         "Michael / Lopez",
         "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
@@ -21,7 +18,7 @@ final _theTopRatedTvShowsProvider = StateProvider((ref) => List.generate(
       10,
       (index) => ContentData(
         "Title",
-        "8.0",
+        8.0,
         "Michael",
         "Michael / Lopez",
         "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
@@ -34,6 +31,7 @@ final _tvShowsProvider = StateProvider<List<List<ContentData>>>((ref) {
   return <List<ContentData>>[nowPopular, topRated];
 });
 
+/*
 class TvShowPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -49,3 +47,4 @@ class TvShowPage extends StatelessWidget {
     );
   }
 }
+*/

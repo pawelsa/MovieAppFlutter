@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class MovieColors {
+  MovieColors._();
+
   static const greyPill = const Color(0xFFACADAD);
+  static const noImage = const Color(0xFFACADAD);
   static const greyButtonText = const Color(0xFF9B9B9B);
   static const yellow = const Color(0xFFFFBC06);
   static const nonSelectedText = const Color(0xFFA9AAAA);

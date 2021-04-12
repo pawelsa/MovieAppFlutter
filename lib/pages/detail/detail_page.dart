@@ -1,33 +1,35 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:movie_app_flutter/common/extensions.dart';
 import 'package:movie_app_flutter/pages/detail/detail_actors.dart';
 import 'package:movie_app_flutter/pages/detail/detail_app_bar.dart';
 import 'package:movie_app_flutter/pages/detail/detail_header.dart';
 import 'package:movie_app_flutter/pages/detail/detail_info.dart';
 import 'package:movie_app_flutter/pages/detail/detail_sheet.dart';
 import 'package:movie_app_flutter/pages/movie/movie_page.dart';
+import 'package:movie_app_flutter/resources/colors.dart';
 import 'package:movie_app_flutter/resources/dimen.dart';
 
 class ContentDetailData extends ContentData {
-  final String backdropPath;
+  final String? backdropPath;
   final String overview;
   final bool isCollected;
   final List<Person> cast;
   final List<Person> crew;
 
-  ContentDetailData(
-      String title,
-      String grade,
-      String director,
-      String stars,
-      String posterPath,
-      this.backdropPath,
-      this.overview,
-      this.isCollected,
-      this.cast,
-      this.crew)
-      : super(title, grade, director, stars, posterPath);
+  ContentDetailData({
+    required String title,
+    required double grade,
+    required String director,
+    required String stars,
+    required String? posterPath,
+    required this.backdropPath,
+    required this.overview,
+    required this.isCollected,
+    required this.cast,
+    required this.crew,
+  }) : super(title, grade, director, stars, posterPath);
 }
 
 class DetailPage extends StatelessWidget {
@@ -73,10 +75,14 @@ class DetailPage extends StatelessWidget {
   Container _buildBlurredImage() {
     return Container(
       decoration: BoxDecoration(
-        image: DecorationImage(
-          image: NetworkImage(content.posterPath),
-          fit: BoxFit.cover,
-        ),
+        image: content.posterPath != null || content.backdropPath != null
+            ? DecorationImage(
+                image: NetworkImage(
+                    content.backdropPath?.path ?? content.posterPath!.path),
+                fit: BoxFit.cover,
+              )
+            : null,
+        color: content.posterPath == null ? MovieColors.noImage : null,
       ),
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
