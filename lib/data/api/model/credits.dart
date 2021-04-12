@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-ApiMovieCredits apiMovieCreditsFromJson(String str) =>
-    ApiMovieCredits.fromJson(json.decode(str));
+ApiCredits apiCreditsFromJson(String str) =>
+    ApiCredits.fromJson(json.decode(str));
 
-class ApiMovieCredits {
-  ApiMovieCredits({
+class ApiCredits {
+  ApiCredits({
     required this.id,
     required this.cast,
     required this.crew,
@@ -14,8 +14,8 @@ class ApiMovieCredits {
   final List<ApiPerson> cast;
   final List<ApiPerson> crew;
 
-  factory ApiMovieCredits.fromJson(Map<String, dynamic> json) {
-    return ApiMovieCredits(
+  factory ApiCredits.fromJson(Map<String, dynamic> json) {
+    return ApiCredits(
       id: json["id"],
       cast:
           List<ApiPerson>.from(json["cast"].map((x) => ApiPerson.fromJson(x))),

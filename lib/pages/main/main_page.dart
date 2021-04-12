@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_app_flutter/pages/main/main_app_bar.dart';
 import 'package:movie_app_flutter/pages/main/main_bottom_bar.dart';
 import 'package:movie_app_flutter/pages/movie/movie_page.dart';
+import 'package:movie_app_flutter/pages/tv_show/tv_show_page.dart';
 import 'package:movie_app_flutter/resources/colors.dart';
 
 final pageProvider = StateProvider((ref) => AppPage.MOVIE);
@@ -33,8 +34,7 @@ class _MainPage extends ConsumerWidget {
     if (currentPage == AppPage.MOVIE) {
       return MoviePage();
     } else if (currentPage == AppPage.TV_SHOW) {
-      // return TvShowPage();
-      return ProfilePage();
+      return TvShowPage();
     } else {
       return ProfilePage();
     }

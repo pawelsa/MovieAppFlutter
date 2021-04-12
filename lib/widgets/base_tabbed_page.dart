@@ -39,6 +39,7 @@ class BaseTabbedPage extends StatelessWidget {
               top: 4.0,
             ),
             child: MovieTabPager(
+              backgroundColor: Colors.transparent,
               pageProvider: pageProvider,
               tabs: tabs,
             ),

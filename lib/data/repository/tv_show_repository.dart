@@ -1,27 +1,28 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_app_flutter/data/api/model/content.dart';
 import 'package:movie_app_flutter/data/api/model/credits.dart';
-import 'package:movie_app_flutter/data/api/movie_api.dart';
+import 'package:movie_app_flutter/data/api/tv_show_api.dart';
 import 'package:movie_app_flutter/pages/detail/detail_actors.dart';
 import 'package:movie_app_flutter/pages/detail/detail_page.dart';
 
-final movieRepositoryProvider = Provider((ref) => MovieRepository(MovieApi()));
+final tvShowRepositoryProvider =
+    Provider((ref) => TvShowRepository(TvShowApi()));
 
-class MovieRepository {
-  final MovieApi _movieApi;
+class TvShowRepository {
+  final TvShowApi _tvShowApi;
 
-  MovieRepository(this._movieApi);
+  TvShowRepository(this._tvShowApi);
 
-  Future<List<ContentDetailData>> getPopularMovies(int page) =>
-      _movieApi.getPopular(page).then(_getMovies);
+  Future<List<ContentDetailData>> getPopular(int page) =>
+      _tvShowApi.getPopular(page).then(_getTvShows);
 
-  Future<List<ContentDetailData>> getUpcomingMovies(int page) =>
-      _movieApi.getUpcoming(page).then(_getMovies);
+  Future<List<ContentDetailData>> getTopRated(int page) =>
+      _tvShowApi.getTopRated(page).then(_getTvShows);
 
-  Future<List<ContentDetailData>> _getMovies(PageContent content) async {
+  Future<List<ContentDetailData>> _getTvShows(PageContent content) async {
     final contentData = <ContentDetailData>[];
     for (var movie in content.results) {
-      final movieCredits = await _movieApi.getCredits(movie.id);
+      final movieCredits = await _tvShowApi.getCredits(movie.id);
       movieCredits.cast.sort((a, b) => a.order!.compareTo(b.order!));
       contentData.add(
         ContentDetailData(

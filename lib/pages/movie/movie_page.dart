@@ -7,28 +7,6 @@ import 'package:movie_app_flutter/widgets/base_tabbed_page.dart';
 
 final _pageProvider = StateProvider((ref) => 0);
 
-final _nowPopularMoviesProvider = StateProvider((ref) => List.generate(
-      10,
-      (index) => ContentData(
-        "Title",
-        8.0,
-        "Michael",
-        "Michael / Lopez",
-        "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
-      ),
-    ));
-
-final _theUpcomingMoviesProvider = StateProvider((ref) => List.generate(
-      10,
-      (index) => ContentData(
-    "Title",
-        8.0,
-        "Michael",
-        "Michael / Lopez",
-        "https://i.pinimg.com/originals/86/55/80/865580314a24d809e6fb0f12ce72e738.jpg",
-      ),
-    ));
-
 final _moviesProvider =
     FutureProvider<List<List<ContentDetailData>>>((ref) async {
   final nowPopular = await ref.watch(getPopularMoviesProvider(1).future);
