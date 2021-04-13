@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_app_flutter/data/repository/tv_show_repository.dart';
 import 'package:movie_app_flutter/data/use_case/get_content.dart';
-import 'package:movie_app_flutter/pages/detail/detail_page.dart';
+import 'package:movie_app_flutter/data/view/content_detail_data.dart';
 
 final getPopularTvShowsProvider =
     FutureProvider.family<List<ContentDetailData>, int>((ref, page) async {

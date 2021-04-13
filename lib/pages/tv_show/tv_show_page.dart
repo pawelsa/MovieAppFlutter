@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_app_flutter/common/extensions.dart';
 import 'package:movie_app_flutter/data/use_case/get_tv_shows.dart';
-import 'package:movie_app_flutter/pages/detail/detail_page.dart';
+import 'package:movie_app_flutter/data/view/content_detail_data.dart';
 import 'package:movie_app_flutter/widgets/base_tabbed_page.dart';
 
 final _pageProvider = StateProvider((ref) => 0);

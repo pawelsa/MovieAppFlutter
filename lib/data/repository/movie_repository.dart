@@ -2,8 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_app_flutter/data/api/model/content.dart';
 import 'package:movie_app_flutter/data/api/model/credits.dart';
 import 'package:movie_app_flutter/data/api/movie_api.dart';
-import 'package:movie_app_flutter/pages/detail/detail_actors.dart';
-import 'package:movie_app_flutter/pages/detail/detail_page.dart';
+import 'package:movie_app_flutter/data/view/content_detail_data.dart';
+import 'package:movie_app_flutter/data/view/person.dart';
 
 final movieRepositoryProvider = Provider((ref) => MovieRepository(MovieApi()));
 

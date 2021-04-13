@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_flutter/common/extensions.dart';
+import 'package:movie_app_flutter/data/view/person.dart';
 import 'package:movie_app_flutter/resources/colors.dart';
 import 'package:movie_app_flutter/resources/dimen.dart';
-
-class Person {
-  final String name;
-  final String? profilePath;
-  final String position;
-
-  Person(this.name, this.profilePath, this.position);
-}
 
 class ActorsSection extends StatelessWidget {
   final List<Person> actors;

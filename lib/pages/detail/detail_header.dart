@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_flutter/common/extensions.dart';
-import 'package:movie_app_flutter/pages/movie/movie_page.dart';
+import 'package:movie_app_flutter/data/view/content_data.dart';
 import 'package:movie_app_flutter/resources/colors.dart';
 import 'package:movie_app_flutter/resources/dimen.dart';
 

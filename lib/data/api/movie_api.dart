@@ -22,8 +22,7 @@ class MovieApi {
     return http
         .get(
           (Uri.parse(
-            "${baseUrl}upcoming?api_key=${Secret.apiKey}&language=en-US&page=$page",
-          )),
+              "${baseUrl}upcoming?api_key=${Secret.apiKey}&language=en-US&page=$page")),
         )
         .then(
           (value) => apiMovieContentFromJson(value.body),

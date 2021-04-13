@@ -2,35 +2,13 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:movie_app_flutter/common/extensions.dart';
-import 'package:movie_app_flutter/pages/detail/detail_actors.dart';
+import 'package:movie_app_flutter/data/view/content_detail_data.dart';
 import 'package:movie_app_flutter/pages/detail/detail_app_bar.dart';
 import 'package:movie_app_flutter/pages/detail/detail_header.dart';
 import 'package:movie_app_flutter/pages/detail/detail_info.dart';
 import 'package:movie_app_flutter/pages/detail/detail_sheet.dart';
-import 'package:movie_app_flutter/pages/movie/movie_page.dart';
 import 'package:movie_app_flutter/resources/colors.dart';
 import 'package:movie_app_flutter/resources/dimen.dart';
-
-class ContentDetailData extends ContentData {
-  final String? backdropPath;
-  final String overview;
-  final bool isCollected;
-  final List<Person> cast;
-  final List<Person> crew;
-
-  ContentDetailData({
-    required String title,
-    required double grade,
-    required String director,
-    required String stars,
-    required String? posterPath,
-    required this.backdropPath,
-    required this.overview,
-    required this.isCollected,
-    required this.cast,
-    required this.crew,
-  }) : super(title, grade, director, stars, posterPath);
-}
 
 class DetailPage extends StatelessWidget {
   final ContentDetailData content;

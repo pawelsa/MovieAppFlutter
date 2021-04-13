@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_flutter/common/extensions.dart';
+import 'package:movie_app_flutter/data/view/content_detail_data.dart';
 import 'package:movie_app_flutter/pages/actors/actors_page.dart';
 import 'package:movie_app_flutter/pages/detail/detail_actors.dart';
 import 'package:movie_app_flutter/pages/detail/detail_actors_headline.dart';
 import 'package:movie_app_flutter/pages/detail/detail_buttons.dart';
-import 'package:movie_app_flutter/pages/detail/detail_page.dart';
 import 'package:movie_app_flutter/resources/colors.dart';
 import 'package:movie_app_flutter/resources/dimen.dart';
 
