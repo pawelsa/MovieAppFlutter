@@ -6,14 +6,14 @@ import 'package:movie_app_flutter/data/view/content_detail_data.dart';
 
 final getPopularTvShowsProvider =
     FutureProvider.family<List<ContentDetailData>, int>((ref, page) async {
-  final repository = ref.watch(tvShowRepositoryProvider);
+  final repository = await ref.watch(tvShowRepositoryProvider.future);
   debugPrint("getPopularTvShowsProvider:obtaining - page: $page");
   return repository.getPopular(page);
 });
 
 final getTopRatedTvShowsProvider =
     FutureProvider.family<List<ContentDetailData>, int>((ref, page) async {
-  final repository = ref.watch(tvShowRepositoryProvider);
+      final repository = await ref.watch(tvShowRepositoryProvider.future);
   debugPrint("getTopRatedTvShowsProvider:obtaining - page: $page");
   return repository.getTopRated(page);
 });
