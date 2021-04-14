@@ -1,8 +1,7 @@
 import 'package:floor/floor.dart';
 
-@Entity(tableName: 'persons')
+@Entity(tableName: 'persons', primaryKeys: ['id', 'credit_id'])
 class PersonDb {
-  @primaryKey
   final int id;
   final String name;
   @ColumnInfo(name: 'profile_path')
@@ -11,6 +10,8 @@ class PersonDb {
   final int? order;
   final String? department;
   final String? job;
+  @ColumnInfo(name: 'credit_id')
+  final String creditId;
 
   PersonDb(
     this.id,
@@ -20,5 +21,6 @@ class PersonDb {
     this.order,
     this.department,
     this.job,
+    this.creditId,
   );
 }

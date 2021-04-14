@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_app_flutter/common/extensions.dart';
+import 'package:movie_app_flutter/data/use_case/get_movie_details.dart';
 import 'package:movie_app_flutter/data/use_case/get_movies.dart';
 import 'package:movie_app_flutter/data/view/content_detail_data.dart';
 import 'package:movie_app_flutter/widgets/base_tabbed_page.dart';
@@ -25,6 +26,7 @@ class MoviePage extends StatelessWidget {
     return BaseTabbedPage(
       pageProvider: _pageProvider,
       contentProvider: _moviesProvider,
+      contentDetailProvider: movieDetailProvider,
       tabs: tabs,
     );
   }

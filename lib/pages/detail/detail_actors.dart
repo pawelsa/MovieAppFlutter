@@ -49,7 +49,7 @@ class ActorsSection extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           Text(
-            person.position,
+            person.positions.join(" / "),
             style: Theme.of(context).textTheme.headline3,
             textAlign: TextAlign.center,
           )

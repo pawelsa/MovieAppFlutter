@@ -9,6 +9,7 @@ class ContentDetailData extends ContentData {
   final List<Person> crew;
 
   ContentDetailData({
+    required int id,
     required String title,
     required double grade,
     required String director,
@@ -19,5 +20,5 @@ class ContentDetailData extends ContentData {
     required this.isCollected,
     required this.cast,
     required this.crew,
-  }) : super(title, grade, director, stars, posterPath);
+  }) : super(id, title, grade, director, stars, posterPath);
 }

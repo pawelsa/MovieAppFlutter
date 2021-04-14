@@ -10,12 +10,14 @@ class BaseTabbedPage extends StatelessWidget {
   final _pageController = PageController();
   final StateProvider<int> pageProvider;
   final FutureProvider<List<List<ContentDetailData>>> contentProvider;
+  final FutureProviderFamily<ContentDetailData, int> contentDetailProvider;
   final List<String> tabs;
 
   BaseTabbedPage({
     Key? key,
     required this.pageProvider,
     required this.contentProvider,
+    required this.contentDetailProvider,
     required this.tabs,
   }) : super(key: key);
 
@@ -91,6 +93,7 @@ class BaseTabbedPage extends StatelessWidget {
       MaterialPageRoute(
         builder: (context) => DetailPage(
           content: content,
+          provider: contentDetailProvider,
         ),
       ),
     );

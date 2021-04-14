@@ -23,7 +23,7 @@ final peopleDaoProvider = FutureProvider<PeopleDao>((ref) async {
   return db.peopleDao;
 });
 
-final contentDaoProvider = FutureProvider<ContentDao>((ref) async {
+final movieDaoProvider = FutureProvider<MovieDao>((ref) async {
   final db = await ref.watch(_databaseProvider.future);
   return db.movieDao;
 });
@@ -40,7 +40,7 @@ final tvShowDaoProvider = FutureProvider<TvShowDao>((ref) async {
 abstract class ContentDatabase extends FloorDatabase {
   PeopleDao get peopleDao;
 
-  ContentDao get movieDao;
+  MovieDao get movieDao;
 
   TvShowDao get tvShowDao;
 }

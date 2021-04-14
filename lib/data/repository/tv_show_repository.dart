@@ -6,11 +6,10 @@ import 'package:movie_app_flutter/data/db/content_db.dart';
 import 'package:movie_app_flutter/data/db/dao/person_dao.dart';
 import 'package:movie_app_flutter/data/db/dao/tv_show_dao.dart';
 import 'package:movie_app_flutter/data/db/model/content_db.dart';
-import 'package:movie_app_flutter/data/db/model/content_person.dart';
-import 'package:movie_app_flutter/data/db/model/person_db.dart';
 import 'package:movie_app_flutter/data/db/model/tv_show_db.dart';
+import 'package:movie_app_flutter/data/repository/content_repository.dart';
+import 'package:movie_app_flutter/data/view/content_data.dart';
 import 'package:movie_app_flutter/data/view/content_detail_data.dart';
-import 'package:movie_app_flutter/data/view/person.dart';
 
 final tvShowRepositoryProvider = FutureProvider<TvShowRepository>((ref) async {
   final tvShowDao = await ref.watch(tvShowDaoProvider.future);
@@ -18,12 +17,12 @@ final tvShowRepositoryProvider = FutureProvider<TvShowRepository>((ref) async {
   return TvShowRepository(TvShowApi(), tvShowDao, peopleDao);
 });
 
-class TvShowRepository {
+class TvShowRepository extends ContentRepository {
   final TvShowApi _tvShowApi;
   final TvShowDao _tvShowDao;
-  final PeopleDao _peopleDao;
 
-  TvShowRepository(this._tvShowApi, this._tvShowDao, this._peopleDao);
+  TvShowRepository(this._tvShowApi, this._tvShowDao, PeopleDao peopleDao)
+      : super(_tvShowDao, peopleDao, false);
 
   Future<List<ContentDetailData>> getPopular(int page) =>
       _tvShowApi.getPopular(page).then((content) => _getTvShows(content, true));
@@ -46,43 +45,12 @@ class TvShowRepository {
           .name;
       final stars = tvShowCredits.cast.take(2).map((e) => e.name).join(" / ");
 
-      final dbTvShow = TvShowDb(tvShow.id, arePopular, order++);
-
-      final dbContent = ContentDb(
-        tvShow.id,
-        false,
-        tvShow.title,
-        tvShow.voteAverage,
-        director,
-        stars,
-        tvShow.posterPath,
-        tvShow.backdropPath,
-        tvShow.overview,
-      );
-
-      final cast = tvShowCredits.cast
-          .map((e) => PersonDb(e.id, e.name, e.profilePath, e.character,
-              e.order, e.department, e.job))
-          .toList();
-      final crew = tvShowCredits.crew
-          .map((e) => PersonDb(e.id, e.name, e.profilePath, e.character,
-              e.order, e.department, e.job))
-          .toList();
-
-      final contentPerson = cast
-          .map((e) => ContentPersonDb(tvShow.id, e.id, false, true, e.order))
-          .toList()
-            ..addAll(crew.map((e) =>
-                ContentPersonDb(tvShow.id, e.id, false, false, e.order)));
-
-      await _tvShowDao.insert(dbContent);
-      await _tvShowDao.insertTvShow(dbTvShow);
-      await _peopleDao.insertPeople(cast);
-      await _peopleDao.insertPeople(crew);
-      await _tvShowDao.insertMoviePersons(contentPerson);
+      await saveTvShowsInDb(
+          tvShow, arePopular, order++, director, stars, tvShowCredits);
 
       contentData.add(
         ContentDetailData(
+          id: tvShow.id,
           title: tvShow.title,
           grade: tvShow.voteAverage,
           director: director,
@@ -91,15 +59,30 @@ class TvShowRepository {
           backdropPath: tvShow.backdropPath,
           overview: tvShow.overview,
           isCollected: false,
-          cast: tvShowCredits.cast
-              .map((e) => Person(e.name, e.profilePath, e.character!))
-              .toList(),
-          crew: tvShowCredits.crew
-              .map((e) => Person(e.name, e.profilePath, e.job!))
-              .toList(),
+          cast: mapCast(api: tvShowCredits.cast),
+          crew: mapCrew(api: tvShowCredits.crew),
         ),
       );
     }
     return contentData;
   }
+
+  Future saveTvShowsInDb(ApiContent content, bool arePopular, int order,
+      String director, String stars, ApiCredits movieCredits) async {
+    final dbTvShow = TvShowDb(content.id, arePopular, order);
+    await saveContentInDb(content, director, stars, movieCredits,
+        _tvShowDao.insertTvShow(dbTvShow));
+  }
+
+  Future<List<ContentDetailData>> getDetailedTopRatedFromDb() =>
+      _tvShowDao.findAllTopRated().then(getDetailsFromDb);
+
+  Future<List<ContentDetailData>> getDetailedPopularFromDb() =>
+      _tvShowDao.findAllPopular().then(getDetailsFromDb);
+
+  Future<List<ContentData>> getTopRatedFromDb(List<ContentDb> moviesDb) =>
+      _tvShowDao.findAllTopRated().then(getContentFromDb);
+
+  Future<List<ContentData>> getPopularFromDb(List<ContentDb> moviesDb) =>
+      _tvShowDao.findAllPopular().then(getContentFromDb);
 }

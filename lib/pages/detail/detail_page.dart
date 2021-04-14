@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_app_flutter/common/extensions.dart';
 import 'package:movie_app_flutter/data/view/content_detail_data.dart';
 import 'package:movie_app_flutter/pages/detail/detail_app_bar.dart';
@@ -12,8 +13,10 @@ import 'package:movie_app_flutter/resources/dimen.dart';
 
 class DetailPage extends StatelessWidget {
   final ContentDetailData content;
+  final FutureProviderFamily<ContentDetailData, int> provider;
 
-  const DetailPage({Key? key, required this.content}) : super(key: key);
+  const DetailPage({Key? key, required this.content, required this.provider})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +36,32 @@ class DetailPage extends StatelessWidget {
                   size: size,
                   content: content,
                 ),
-                DetailInfoPanel(
-                  content: content,
-                  bottomPadding: Dimen.detailAdditionalBottomPaddingPercentage *
-                      size.height,
+                Consumer(
+                  builder: (context, watch, _) {
+                    final details = watch(provider(content.id));
+                    return details.when(
+                      data: (detailsData) => DetailInfoPanel(
+                        content: detailsData,
+                        bottomPadding:
+                            Dimen.detailAdditionalBottomPaddingPercentage *
+                                size.height,
+                      ),
+                      loading: () => Container(
+                        height: size.height * 2 / 3,
+                        width: size.width,
+                        color: Colors.white,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                      error: (e, _) => Container(
+                        height: size.height * 2 / 3,
+                        width: size.width,
+                        color: Colors.white,
+                        child: Text(e.toString()),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

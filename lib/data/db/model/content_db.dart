@@ -1,11 +1,11 @@
 import 'package:floor/floor.dart';
 
-@Entity(tableName: 'content')
+@Entity(
+  tableName: 'content',
+  primaryKeys: ['id'],
+)
 class ContentDb {
-  @primaryKey
   final int id;
-
-  // to remove this field, two separate tables would be necessary
   @ColumnInfo(name: 'is_movie')
   final bool isMovie;
   final String title;

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_app_flutter/data/api/model/content.dart';
 import 'package:movie_app_flutter/data/api/model/credits.dart';
@@ -6,24 +7,23 @@ import 'package:movie_app_flutter/data/db/content_db.dart';
 import 'package:movie_app_flutter/data/db/dao/movie_dao.dart';
 import 'package:movie_app_flutter/data/db/dao/person_dao.dart';
 import 'package:movie_app_flutter/data/db/model/content_db.dart';
-import 'package:movie_app_flutter/data/db/model/content_person.dart';
 import 'package:movie_app_flutter/data/db/model/movie_db.dart';
-import 'package:movie_app_flutter/data/db/model/person_db.dart';
+import 'package:movie_app_flutter/data/repository/content_repository.dart';
+import 'package:movie_app_flutter/data/view/content_data.dart';
 import 'package:movie_app_flutter/data/view/content_detail_data.dart';
-import 'package:movie_app_flutter/data/view/person.dart';
 
 final movieRepositoryProvider = FutureProvider<MovieRepository>((ref) async {
-  final contentDao = await ref.watch(contentDaoProvider.future);
+  final contentDao = await ref.watch(movieDaoProvider.future);
   final peopleDao = await ref.watch(peopleDaoProvider.future);
   return MovieRepository(MovieApi(), contentDao, peopleDao);
 });
 
-class MovieRepository {
+class MovieRepository extends ContentRepository {
   final MovieApi _movieApi;
-  final ContentDao _contentDao;
-  final PeopleDao _peopleDao;
+  final MovieDao _movieDao;
 
-  MovieRepository(this._movieApi, this._contentDao, this._peopleDao);
+  MovieRepository(this._movieApi, this._movieDao, PeopleDao peopleDao)
+      : super(_movieDao, peopleDao, true);
 
   Future<List<ContentDetailData>> getPopularMovies(int page) =>
       _movieApi.getPopular(page).then((content) => _getMovies(content, true));
@@ -34,8 +34,8 @@ class MovieRepository {
   Future<List<ContentDetailData>> _getMovies(
       PageContent content, bool arePopular) async {
     final contentData = <ContentDetailData>[];
-    // TODO when adding pages, order should be set depending on page number
-    var order = 0;
+    var order = (content.page - 1) * content.results.length;
+
     for (var movie in content.results) {
       final movieCredits = await _movieApi.getCredits(movie.id);
       movieCredits.cast.sort((a, b) => a.order!.compareTo(b.order!));
@@ -46,43 +46,12 @@ class MovieRepository {
           .name;
       final stars = movieCredits.cast.take(2).map((e) => e.name).join(" / ");
 
-      final dbMovie = MovieDb(movie.id, arePopular, order++);
-
-      final dbContent = ContentDb(
-        movie.id,
-        true,
-        movie.title,
-        movie.voteAverage,
-        director,
-        stars,
-        movie.posterPath,
-        movie.backdropPath,
-        movie.overview,
-      );
-
-      final cast = movieCredits.cast
-          .map((e) => PersonDb(e.id, e.name, e.profilePath, e.character,
-              e.order, e.department, e.job))
-          .toList();
-      final crew = movieCredits.crew
-          .map((e) => PersonDb(e.id, e.name, e.profilePath, e.character,
-              e.order, e.department, e.job))
-          .toList();
-
-      final contentPerson = cast
-          .map((e) => ContentPersonDb(movie.id, e.id, true, true, e.order))
-          .toList()
-            ..addAll(crew.map(
-                (e) => ContentPersonDb(movie.id, e.id, true, false, e.order)));
-
-      await _contentDao.insert(dbContent);
-      await _contentDao.insertMovie(dbMovie);
-      await _peopleDao.insertPeople(cast);
-      await _peopleDao.insertPeople(crew);
-      await _contentDao.insertMoviePersons(contentPerson);
+      await saveMoviesInDb(
+          movie, arePopular, order++, director, stars, movieCredits);
 
       contentData.add(
         ContentDetailData(
+          id: movie.id,
           title: movie.title,
           grade: movie.voteAverage,
           director: director,
@@ -91,15 +60,31 @@ class MovieRepository {
           backdropPath: movie.backdropPath,
           overview: movie.overview,
           isCollected: false,
-          cast: movieCredits.cast
-              .map((e) => Person(e.name, e.profilePath, e.character!))
-              .toList(),
-          crew: movieCredits.crew
-              .map((e) => Person(e.name, e.profilePath, e.job!))
-              .toList(),
+          cast: mapCast(api: movieCredits.cast),
+          crew: mapCrew(api: movieCredits.crew),
         ),
       );
     }
     return contentData;
   }
+
+  Future saveMoviesInDb(ApiContent content, bool arePopular, int order,
+      String director, String stars, ApiCredits movieCredits) async {
+    final dbMovie = MovieDb(content.id, arePopular, order);
+    debugPrint("MovieRepository:saveMoviesInDb - dbMovieId: ${dbMovie.id}");
+    await saveContentInDb(
+        content, director, stars, movieCredits, _movieDao.insertMovie(dbMovie));
+  }
+
+  Future<List<ContentDetailData>> getDetailedUpcomingFromDb() =>
+      _movieDao.findAllUpcoming().then(getDetailsFromDb);
+
+  Future<List<ContentDetailData>> getDetailedPopularFromDb() =>
+      _movieDao.findAllPopular().then(getDetailsFromDb);
+
+  Future<List<ContentData>> getUpcomingFromDb(List<ContentDb> moviesDb) =>
+      _movieDao.findAllUpcoming().then(getContentFromDb);
+
+  Future<List<ContentData>> getPopularFromDb(List<ContentDb> moviesDb) =>
+      _movieDao.findAllPopular().then(getContentFromDb);
 }

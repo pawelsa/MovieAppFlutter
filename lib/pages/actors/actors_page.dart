@@ -104,7 +104,7 @@ class ActorsPage extends StatelessWidget {
                                                   .headline2,
                                             ),
                                             Text(
-                                              person.position,
+                                              person.positions.join(" / "),
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headline3,

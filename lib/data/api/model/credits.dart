@@ -34,6 +34,7 @@ class ApiPerson {
     required this.order,
     required this.department,
     required this.job,
+    required this.creditId,
   });
 
   ApiPerson.empty()
@@ -43,7 +44,8 @@ class ApiPerson {
         character = null,
         order = -1,
         department = null,
-        job = null;
+        job = null,
+        creditId = "";
 
   final int id;
   final String name;
@@ -52,8 +54,10 @@ class ApiPerson {
   final int? order;
   final String? department;
   final String? job;
+  final String creditId;
 
-  factory ApiPerson.fromJson(Map<String, dynamic> json) => ApiPerson(
+  factory ApiPerson.fromJson(Map<String, dynamic> json) =>
+      ApiPerson(
         id: json["id"],
         name: json["name"],
         profilePath: json["profile_path"] == null ? null : json["profile_path"],
@@ -61,5 +65,6 @@ class ApiPerson {
         order: json["order"] == null ? null : json["order"],
         department: json["department"] == null ? null : json["department"],
         job: json["job"] == null ? null : json["job"],
+        creditId: json['credit_id'],
       );
 }
