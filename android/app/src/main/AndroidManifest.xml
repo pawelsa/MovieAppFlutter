@@ -1,6 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.movie_app_flutter">
-   <application
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
         android:label="movie_app_flutter"
         android:icon="@mipmap/ic_launcher">
         <activity

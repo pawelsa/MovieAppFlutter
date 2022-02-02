@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_app_flutter/data/api/model/content.dart';
 import 'package:movie_app_flutter/data/api/model/credits.dart';
@@ -6,7 +5,6 @@ import 'package:movie_app_flutter/data/api/movie_api.dart';
 import 'package:movie_app_flutter/data/db/content_db.dart';
 import 'package:movie_app_flutter/data/db/dao/movie_dao.dart';
 import 'package:movie_app_flutter/data/db/dao/person_dao.dart';
-import 'package:movie_app_flutter/data/db/model/content_db.dart';
 import 'package:movie_app_flutter/data/db/model/movie_db.dart';
 import 'package:movie_app_flutter/data/repository/content_repository.dart';
 import 'package:movie_app_flutter/data/view/content_data.dart';
@@ -71,7 +69,6 @@ class MovieRepository extends ContentRepository {
   Future saveMoviesInDb(ApiContent content, bool arePopular, int order,
       String director, String stars, ApiCredits movieCredits) async {
     final dbMovie = MovieDb(content.id, arePopular, order);
-    debugPrint("MovieRepository:saveMoviesInDb - dbMovieId: ${dbMovie.id}");
     await saveContentInDb(
         content, director, stars, movieCredits, _movieDao.insertMovie(dbMovie));
   }
@@ -82,9 +79,9 @@ class MovieRepository extends ContentRepository {
   Future<List<ContentDetailData>> getDetailedPopularFromDb() =>
       _movieDao.findAllPopular().then(getDetailsFromDb);
 
-  Future<List<ContentData>> getUpcomingFromDb(List<ContentDb> moviesDb) =>
+  Future<List<ContentData>> getUpcomingFromDb() =>
       _movieDao.findAllUpcoming().then(getContentFromDb);
 
-  Future<List<ContentData>> getPopularFromDb(List<ContentDb> moviesDb) =>
+  Future<List<ContentData>> getPopularFromDb() =>
       _movieDao.findAllPopular().then(getContentFromDb);
 }

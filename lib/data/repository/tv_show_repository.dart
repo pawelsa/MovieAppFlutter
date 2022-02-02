@@ -5,7 +5,6 @@ import 'package:movie_app_flutter/data/api/tv_show_api.dart';
 import 'package:movie_app_flutter/data/db/content_db.dart';
 import 'package:movie_app_flutter/data/db/dao/person_dao.dart';
 import 'package:movie_app_flutter/data/db/dao/tv_show_dao.dart';
-import 'package:movie_app_flutter/data/db/model/content_db.dart';
 import 'package:movie_app_flutter/data/db/model/tv_show_db.dart';
 import 'package:movie_app_flutter/data/repository/content_repository.dart';
 import 'package:movie_app_flutter/data/view/content_data.dart';
@@ -80,9 +79,9 @@ class TvShowRepository extends ContentRepository {
   Future<List<ContentDetailData>> getDetailedPopularFromDb() =>
       _tvShowDao.findAllPopular().then(getDetailsFromDb);
 
-  Future<List<ContentData>> getTopRatedFromDb(List<ContentDb> moviesDb) =>
+  Future<List<ContentData>> getTopRatedFromDb() =>
       _tvShowDao.findAllTopRated().then(getContentFromDb);
 
-  Future<List<ContentData>> getPopularFromDb(List<ContentDb> moviesDb) =>
+  Future<List<ContentData>> getPopularFromDb() =>
       _tvShowDao.findAllPopular().then(getContentFromDb);
 }

@@ -44,7 +44,7 @@ class ApiContent {
   final List<int> genreIds;
   final String overview;
   final double popularity;
-  final DateTime firstAirDate;
+  final DateTime? firstAirDate;
   final double voteAverage;
 
   ApiContent({
@@ -60,26 +60,32 @@ class ApiContent {
   });
 
   factory ApiContent.fromTvJson(Map<String, dynamic> json) => ApiContent(
-        backdropPath: json["backdrop_path"],
+    backdropPath: json["backdrop_path"],
         genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
         id: json["id"],
         overview: json["overview"],
         popularity: json["popularity"].toDouble(),
         posterPath: json["poster_path"],
-        firstAirDate: DateTime.parse(json["first_air_date"]),
+        firstAirDate: json["release_date"] != null
+            ? DateTime.tryParse(json["release_date"])
+            : null,
         title: json["name"],
         voteAverage: json["vote_average"].toDouble(),
       );
 
-  factory ApiContent.fromMovieJson(Map<String, dynamic> json) => ApiContent(
-        backdropPath: json["backdrop_path"],
-        genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
-        id: json["id"],
-        overview: json["overview"],
-        popularity: json["popularity"].toDouble(),
-        posterPath: json["poster_path"],
-        firstAirDate: DateTime.parse(json["release_date"]),
-        title: json["title"],
-        voteAverage: json["vote_average"].toDouble(),
-      );
+  factory ApiContent.fromMovieJson(Map<String, dynamic> json) {
+    return ApiContent(
+      backdropPath: json["backdrop_path"],
+      genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
+      id: json["id"],
+      overview: json["overview"],
+      popularity: json["popularity"].toDouble(),
+      posterPath: json["poster_path"],
+      firstAirDate: json["release_date"] != null
+          ? DateTime.tryParse(json["release_date"])
+          : null,
+      title: json["title"],
+      voteAverage: json["vote_average"].toDouble(),
+    );
+  }
 }

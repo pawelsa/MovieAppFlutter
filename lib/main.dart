@@ -7,21 +7,10 @@ import 'package:movie_app_flutter/resources/colors.dart';
 const fontItcAvantGardeStd = 'itc_avant_garde_std';
 const fontEthnocentric = 'Ethnocentric';
 
-class Logger extends ProviderObserver {
-  @override
-  void didUpdateProvider(ProviderBase provider, Object? newValue) {
-    if (newValue is StateController<int>) {
-      print(
-          '[${provider.name ?? provider.runtimeType}] value: ${newValue.state}');
-    }
-  }
-}
-
 void main() {
   runApp(
     ProviderScope(
       observers: [
-        Logger(),
       ],
       child: MyApp(),
     ),
@@ -33,6 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,

@@ -38,7 +38,7 @@ class MainBottomBar extends StatelessWidget {
     return IconButton(
       icon: Icon(
         icon,
-        color: isCurrent ? MovieColors.yellow : MovieColors.greyButton,
+        color: isCurrent ? MovieColors.yellow : const Color(0xFFA9AAAA),
       ),
       onPressed: () => context.read(pageProvider).state = page,
     );
@@ -46,11 +46,11 @@ class MainBottomBar extends StatelessWidget {
 
   IconData _getIcon(AppPage page) {
     if (page == AppPage.MOVIE) {
-      return Icons.home;
+      return Icons.home_outlined;
     } else if (page == AppPage.TV_SHOW) {
-      return Icons.transform;
+      return Icons.edit_outlined;
     } else {
-      return Icons.person;
+      return Icons.person_outline;
     }
   }
 }

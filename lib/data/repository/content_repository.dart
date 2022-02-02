@@ -1,5 +1,4 @@
 import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
 import 'package:movie_app_flutter/common/extensions.dart';
 import 'package:movie_app_flutter/data/api/model/content.dart';
 import 'package:movie_app_flutter/data/api/model/credits.dart';
@@ -50,8 +49,6 @@ abstract class ContentRepository {
               content.id, e.id, e.creditId, isMovie, false, e.order)));
 
     await _contentDao.insert(dbContent);
-    debugPrint(
-        "ContentRepository:saveContentInDb - contentId: ${dbContent.id}");
     await insertContent;
     await _peopleDao.insertPeople(cast);
     await _peopleDao.insertPeople(crew);

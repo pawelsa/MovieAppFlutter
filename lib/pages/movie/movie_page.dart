@@ -6,7 +6,7 @@ import 'package:movie_app_flutter/data/use_case/get_movies.dart';
 import 'package:movie_app_flutter/data/view/content_detail_data.dart';
 import 'package:movie_app_flutter/widgets/base_tabbed_page.dart';
 
-final _pageProvider = StateProvider((ref) => 0);
+final _pageProvider = StateProvider<int>((ref) => 0);
 
 final _moviesProvider =
     FutureProvider<List<List<ContentDetailData>>>((ref) async {
