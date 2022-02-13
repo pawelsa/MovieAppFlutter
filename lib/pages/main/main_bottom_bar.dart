@@ -14,15 +14,15 @@ class MainBottomBar extends StatelessWidget {
       child: SizedBox(
         height: 70,
         child: Consumer(
-          builder: (context, watch, _) {
-            final currentPage = watch(pageProvider).state;
+          builder: (context, ref, _) {
+            final currentPage = ref.watch(pageProvider);
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               mainAxisSize: MainAxisSize.max,
               children: [
-                _buildIconButton(context, currentPage, AppPage.MOVIE),
-                _buildIconButton(context, currentPage, AppPage.TV_SHOW),
-                _buildIconButton(context, currentPage, AppPage.PROFILE),
+                _buildIconButton(ref, currentPage, AppPage.MOVIE),
+                _buildIconButton(ref, currentPage, AppPage.TV_SHOW),
+                _buildIconButton(ref, currentPage, AppPage.PROFILE),
               ],
             );
           },
@@ -31,8 +31,7 @@ class MainBottomBar extends StatelessWidget {
     );
   }
 
-  IconButton _buildIconButton(
-      BuildContext context, AppPage current, AppPage page) {
+  IconButton _buildIconButton(WidgetRef ref, AppPage current, AppPage page) {
     final isCurrent = page == current;
     final icon = _getIcon(page);
     return IconButton(
@@ -40,7 +39,7 @@ class MainBottomBar extends StatelessWidget {
         icon,
         color: isCurrent ? MovieColors.yellow : const Color(0xFFA9AAAA),
       ),
-      onPressed: () => context.read(pageProvider).state = page,
+      onPressed: () => ref.read(pageProvider.notifier).state = page,
     );
   }
 

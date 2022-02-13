@@ -24,67 +24,66 @@ class BaseTabbedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
-    return ProviderListener<StateController<int>>(
-      provider: pageProvider,
-      onChange: (context, provider) {
+    Provider((ref) {
+      ref.listen<int>(pageProvider, (_, next) {
         _pageController.animateToPage(
-          provider.state,
+          next,
           duration: Durations.pageChange,
           curve: Curves.easeInOut,
         );
-      },
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 17.0,
-              top: 4.0,
-            ),
-            child: MovieTabPager(
-              backgroundColor: Colors.transparent,
-              pageProvider: pageProvider,
-              tabs: tabs,
-            ),
+      });
+    });
+
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(
+            left: 17.0,
+            top: 4.0,
           ),
-          Expanded(
-            child: Consumer(
-              builder: (context, watch, child) {
-                final tabContent = watch(contentProvider);
-                return tabContent.when(
-                  data: (tabContent) => PageView.builder(
-                    controller: _pageController,
-                    onPageChanged: (page) =>
-                        context.read(pageProvider).state = page,
-                    itemCount: tabContent.length,
-                    itemBuilder: (context, tabIndex) {
-                      return ListView.builder(
-                        itemCount: tabContent[tabIndex].length,
-                        itemBuilder: (context, index) {
-                          final item = tabContent[tabIndex][index];
-                          return CardItem(
-                            onTap: () => _onCardTap(context, item),
-                            content: item,
-                            width: size.width,
-                          );
-                        },
-                      );
-                    },
-                  ),
-                  loading: () => Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  error: (e, stack) {
-                    debugPrint(
-                        "BaseTabbedPage:build - error: ${stack.toString()}");
-                    return Text(e.toString());
+          child: MovieTabPager(
+            backgroundColor: Colors.transparent,
+            pageProvider: pageProvider,
+            tabs: tabs,
+          ),
+        ),
+        Expanded(
+          child: Consumer(
+            builder: (context, ref, child) {
+              final tabContent = ref.watch(contentProvider);
+              return tabContent.when(
+                data: (tabContent) => PageView.builder(
+                  controller: _pageController,
+                  onPageChanged: (page) => Provider(
+                      (ref) => ref.read(pageProvider.notifier).state = page),
+                  itemCount: tabContent.length,
+                  itemBuilder: (context, tabIndex) {
+                    return ListView.builder(
+                      itemCount: tabContent[tabIndex].length,
+                      itemBuilder: (context, index) {
+                        final item = tabContent[tabIndex][index];
+                        return CardItem(
+                          onTap: () => _onCardTap(context, item),
+                          content: item,
+                          width: size.width,
+                        );
+                      },
+                    );
                   },
-                );
-              },
-            ),
+                ),
+                loading: () => Center(
+                  child: CircularProgressIndicator(),
+                ),
+                error: (e, stack) {
+                  debugPrint(
+                      "BaseTabbedPage:build - error: ${stack.toString()}");
+                  return Text(e.toString());
+                },
+              );
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

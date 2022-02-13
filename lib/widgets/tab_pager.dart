@@ -16,8 +16,8 @@ class MovieTabPager extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final currentPage = watch(pageProvider).state;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentPage = ref.watch(pageProvider);
     return Row(
       children: tabs
           .map(
@@ -45,7 +45,8 @@ class MovieTabPager extends ConsumerWidget {
         children: [
           InkWell(
             borderRadius: BorderRadius.circular(4.0),
-            onTap: () => context.read(pageProvider).state = index,
+            onTap: () => Provider(
+                (ref) => ref.read(pageProvider.notifier).state = index),
             child: Padding(
               padding: const EdgeInsets.all(Dimen.tabTextPadding),
               child: Text(

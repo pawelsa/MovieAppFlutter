@@ -37,8 +37,8 @@ class MainPage extends StatelessWidget {
 
 class _MainPage extends ConsumerWidget {
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final currentPage = watch(pageProvider).state;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentPage = ref.watch(pageProvider);
     if (currentPage == AppPage.MOVIE) {
       return MoviePage();
     } else if (currentPage == AppPage.TV_SHOW) {

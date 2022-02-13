@@ -37,8 +37,8 @@ class DetailPage extends StatelessWidget {
                   content: content,
                 ),
                 Consumer(
-                  builder: (context, watch, _) {
-                    final details = watch(provider(content.id));
+                  builder: (context, ref, _) {
+                    final details = ref.watch(provider(content.id));
                     return details.when(
                       data: (detailsData) => DetailInfoPanel(
                         content: detailsData,

@@ -16,8 +16,8 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Consumer(
-              builder: (context, watch, child) {
-                final currentPage = watch(pageProvider).state;
+              builder: (context, ref, child) {
+                final currentPage = ref.watch(pageProvider);
                 final title = currentPage == AppPage.MOVIE
                     ? context.text.appBarMovies
                     : currentPage == AppPage.TV_SHOW
