@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_app_flutter/data/api/model/content.dart';
-import 'package:movie_app_flutter/data/api/model/credits.dart';
+import 'package:movie_app_flutter/data/api/model/content_api_model.dart';
+import 'package:movie_app_flutter/data/api/model/credits_api_model.dart';
 import 'package:movie_app_flutter/data/api/movie_api.dart';
 import 'package:movie_app_flutter/data/db/content_db.dart';
 import 'package:movie_app_flutter/data/db/dao/movie_dao.dart';
@@ -24,49 +24,63 @@ class MovieRepository extends ContentRepository {
       : super(_movieDao, peopleDao, true);
 
   Future<List<ContentDetailData>> getPopularMovies(int page) =>
-      _movieApi.getPopular(page).then((content) => _getMovies(content, true));
+      _movieApi.getPopular(page).then((content) {
+        if (content is ContentListResponse) {
+          return _getMoviesWithResp(content, true);
+        }
+        return <ContentDetailData>[];
+      });
 
   Future<List<ContentDetailData>> getUpcomingMovies(int page) =>
-      _movieApi.getUpcoming(page).then((content) => _getMovies(content, false));
+      _movieApi.getUpcoming(page).then((content) {
+        if (content is ContentListResponse) {
+          return _getMoviesWithResp(content, true);
+        }
+        return <ContentDetailData>[];
+      });
 
-  Future<List<ContentDetailData>> _getMovies(
-      PageContent content, bool arePopular) async {
+  Future<List<ContentDetailData>> _getMoviesWithResp(
+      ContentListResponse content, bool arePopular) async {
     final contentData = <ContentDetailData>[];
     var order = (content.page - 1) * content.results.length;
 
     for (var movie in content.results) {
       final movieCredits = await _movieApi.getCredits(movie.id);
-      movieCredits.cast.sort((a, b) => a.order!.compareTo(b.order!));
 
-      final director = movieCredits.crew
-          .firstWhere((element) => element.job?.startsWith("Director") ?? false,
-              orElse: () => ApiPerson.empty())
-          .name;
-      final stars = movieCredits.cast.take(2).map((e) => e.name).join(" / ");
+      if (movieCredits is ApiCredits) {
+        movieCredits.cast.sort((a, b) => a.order!.compareTo(b.order!));
 
-      await saveMoviesInDb(
-          movie, arePopular, order++, director, stars, movieCredits);
+        final director = movieCredits.crew
+            .firstWhere(
+                (element) => element.job?.startsWith("Director") ?? false,
+                orElse: () => ApiPerson.empty())
+            .name;
+        // TODO: 14/02/2022 handle when only one
+        final stars = movieCredits.cast.take(2).map((e) => e.name).join(" / ");
+        await saveMoviesInDb(
+            movie, arePopular, order++, director, stars, movieCredits);
 
-      contentData.add(
-        ContentDetailData(
-          id: movie.id,
-          title: movie.title,
-          grade: movie.voteAverage,
-          director: director,
-          stars: stars,
-          posterPath: movie.posterPath,
-          backdropPath: movie.backdropPath,
-          overview: movie.overview,
-          isCollected: false,
-          cast: mapCast(api: movieCredits.cast),
-          crew: mapCrew(api: movieCredits.crew),
-        ),
-      );
+        contentData.add(
+          ContentDetailData(
+            id: movie.id,
+            title: movie.title,
+            grade: movie.voteAverage,
+            director: director,
+            stars: stars,
+            posterPath: movie.posterPath,
+            backdropPath: movie.backdropPath,
+            overview: movie.overview,
+            isCollected: false,
+            cast: mapCast(api: movieCredits.cast),
+            crew: mapCrew(api: movieCredits.crew),
+          ),
+        );
+      }
     }
     return contentData;
   }
 
-  Future saveMoviesInDb(ApiContent content, bool arePopular, int order,
+  Future saveMoviesInDb(ContentResponse content, bool arePopular, int order,
       String director, String stars, ApiCredits movieCredits) async {
     final dbMovie = MovieDb(content.id, arePopular, order);
     await saveContentInDb(

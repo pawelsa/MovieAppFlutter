@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:movie_app_flutter/common/extensions.dart';
-import 'package:movie_app_flutter/data/api/model/content.dart';
-import 'package:movie_app_flutter/data/api/model/credits.dart';
+import 'package:movie_app_flutter/data/api/model/content_api_model.dart';
+import 'package:movie_app_flutter/data/api/model/credits_api_model.dart';
 import 'package:movie_app_flutter/data/db/dao/content_dao.dart';
 import 'package:movie_app_flutter/data/db/dao/person_dao.dart';
 import 'package:movie_app_flutter/data/db/model/content_db.dart';
@@ -18,7 +18,7 @@ abstract class ContentRepository {
 
   ContentRepository(this._contentDao, this._peopleDao, this.isMovie);
 
-  Future saveContentInDb(ApiContent content, String director, String stars,
+  Future saveContentInDb(ContentResponse content, String director, String stars,
       ApiCredits movieCredits, Future<void> insertContent) async {
     final dbContent = ContentDb(
       content.id,

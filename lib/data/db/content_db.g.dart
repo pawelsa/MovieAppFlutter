@@ -6,6 +6,7 @@ part of 'content_db.dart';
 // FloorGenerator
 // **************************************************************************
 
+// ignore: avoid_classes_with_only_static_members
 class $FloorContentDatabase {
   /// Creates a database builder for a persistent database.
   /// Once a database is built, you should keep a reference to it and re-use it.
@@ -72,6 +73,7 @@ class _$ContentDatabase extends ContentDatabase {
       version: 1,
       onConfigure: (database) async {
         await database.execute('PRAGMA foreign_keys = ON');
+        await callback?.onConfigure?.call(database);
       },
       onOpen: (database) async {
         await callback?.onOpen?.call(database);
@@ -173,8 +175,7 @@ class _$MovieDao extends MovieDao {
         _contentPersonDbInsertionAdapter = InsertionAdapter(
             database,
             'content_person',
-            (ContentPersonDb item) =>
-            <String, Object?>{
+                (ContentPersonDb item) => <String, Object?>{
                   'content_id': item.contentId,
                   'person_id': item.personId,
                   'credit_id': item.creditId,
@@ -312,8 +313,7 @@ class _$TvShowDao extends TvShowDao {
         _contentPersonDbInsertionAdapter = InsertionAdapter(
             database,
             'content_person',
-            (ContentPersonDb item) =>
-            <String, Object?>{
+                (ContentPersonDb item) => <String, Object?>{
                   'content_id': item.contentId,
                   'person_id': item.personId,
                   'credit_id': item.creditId,
