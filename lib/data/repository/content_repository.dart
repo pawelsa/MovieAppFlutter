@@ -18,8 +18,8 @@ abstract class ContentRepository {
 
   ContentRepository(this._contentDao, this._peopleDao, this.isMovie);
 
-  Future saveContentInDb(ContentResponse content, String director, String stars,
-      ApiCredits movieCredits, Future<void> insertContent) async {
+  Future saveContentInDb(ContentResponse content, String director, String stars, ApiCredits movieCredits,
+      Future<void> insertContent) async {
     final dbContent = ContentDb(
       content.id,
       isMovie,
@@ -33,20 +33,16 @@ abstract class ContentRepository {
     );
 
     final cast = movieCredits.cast
-        .map((e) => PersonDb(e.id, e.name, e.profilePath, e.character, e.order,
-            e.department, e.job, e.creditId))
+        .map((e) => PersonDb(e.id, e.name, e.profilePath, e.character, e.order, e.department, e.job, e.creditId))
         .toList();
     final crew = movieCredits.crew
-        .map((e) => PersonDb(e.id, e.name, e.profilePath, e.character, e.order,
-            e.department, e.job, e.creditId))
+        .map((e) => PersonDb(e.id, e.name, e.profilePath, e.character, e.order, e.department, e.job, e.creditId))
         .toList();
 
     final contentPerson = cast
-        .map((e) => ContentPersonDb(
-            content.id, e.id, e.creditId, isMovie, true, e.order))
+        .map((e) => ContentPersonDb(content.id, e.id, e.creditId, isMovie, true, e.order))
         .toList()
-          ..addAll(crew.map((e) => ContentPersonDb(
-              content.id, e.id, e.creditId, isMovie, false, e.order)));
+      ..addAll(crew.map((e) => ContentPersonDb(content.id, e.id, e.creditId, isMovie, false, e.order)));
 
     await _contentDao.insert(dbContent);
     await insertContent;
@@ -55,8 +51,7 @@ abstract class ContentRepository {
     await _contentDao.insertContentPersons(contentPerson);
   }
 
-  Future<List<ContentDetailData>> getDetailsFromDb(
-      List<ContentDb> moviesDb) async {
+  Future<List<ContentDetailData>> getDetailsFromDb(List<ContentDb> moviesDb) async {
     final movies = <ContentDetailData>[];
     for (var movie in moviesDb) {
       final movieCast = await _contentDao.findAllCast(movie.id);
@@ -86,30 +81,25 @@ abstract class ContentRepository {
 
   List<Person> mapCrew({List<PersonDb>? db, List<ApiPerson>? api}) => db != null
       ? _mapDbPersons(
-          db,
-          (persons) => Person(persons.first.name, persons.first.profilePath,
-              persons.mapToList((e) => e.job!)),
+    db,
+          (persons) => Person(persons.first.name, persons.first.profilePath, persons.mapToList((e) => e.job!)),
         )
       : _mapApiPeople(
-          api!,
-          (people) => Person(people.first.name, people.first.profilePath,
-              people.mapToList((e) => e.job!)),
+    api!,
+          (people) => Person(people.first.name, people.first.profilePath, people.mapToList((e) => e.job!)),
         );
 
   List<Person> mapCast({List<PersonDb>? db, List<ApiPerson>? api}) => db != null
       ? _mapDbPersons(
-          db,
-          (persons) => Person(persons.first.name, persons.first.profilePath,
-              persons.mapToList((e) => e.character!)),
+    db,
+          (persons) => Person(persons.first.name, persons.first.profilePath, persons.mapToList((e) => e.character!)),
         )
       : _mapApiPeople(
-          api!,
-          (people) => Person(people.first.name, people.first.profilePath,
-              people.mapToList((e) => e.character!)),
+    api!,
+          (people) => Person(people.first.name, people.first.profilePath, people.mapToList((e) => e.character!)),
         );
 
-  List<Person> _mapDbPersons(
-      List<PersonDb> castDb, Person Function(List<PersonDb>) map) {
+  List<Person> _mapDbPersons(List<PersonDb> castDb, Person Function(List<PersonDb>) map) {
     final castGrouped = groupBy<PersonDb, int>(castDb, (person) => person.id);
     final cast = <Person>[];
     castGrouped.forEach((personId, persons) {
@@ -118,10 +108,8 @@ abstract class ContentRepository {
     return cast;
   }
 
-  List<Person> _mapApiPeople(
-      List<ApiPerson> apiPeople, Person Function(List<ApiPerson>) map) {
-    final peopleGrouped =
-        groupBy<ApiPerson, int>(apiPeople, (person) => person.id);
+  List<Person> _mapApiPeople(List<ApiPerson> apiPeople, Person Function(List<ApiPerson>) map) {
+    final peopleGrouped = groupBy<ApiPerson, int>(apiPeople, (person) => person.id);
     final people = <Person>[];
     peopleGrouped.forEach((personId, persons) {
       people.add(map(persons));
