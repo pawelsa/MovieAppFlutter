@@ -10,24 +10,31 @@ abstract class Api {
     required Response Function(String body) mapper,
     Map<String, String>? headers,
   }) {
+    uri = _prepareUri(uri);
+
+    return http.get(uri, headers: headers).then((response) => _handleResponse(response, mapper));
+  }
+
+  Uri _prepareUri(Uri uri) {
     final newQueryParameters = Map<String, dynamic>.from(uri.queryParameters);
     newQueryParameters["api_key"] = Secret.apiKey;
     uri = uri.replace(queryParameters: newQueryParameters);
+    return uri;
+  }
 
-    return http.get(uri, headers: headers).then((response) {
-      switch (response.statusCode) {
-        case 200:
-          return mapper(response.body);
-        case 400:
-          return BadRequestResponse();
-        case 401:
-        case 403:
-          return UnAuthorizedResponse();
-        case 404:
-          return NotFoundResponse();
-        default:
-          return NotHandledResponse();
-      }
-    });
+  Response _handleResponse(http.Response response, Response Function(String body) mapper) {
+    switch (response.statusCode) {
+      case 200:
+        return mapper(response.body);
+      case 400:
+        return BadRequestResponse();
+      case 401:
+      case 403:
+        return UnAuthorizedResponse();
+      case 404:
+        return NotFoundResponse();
+      default:
+        return NotHandledResponse();
+    }
   }
 }
