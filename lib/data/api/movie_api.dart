@@ -7,12 +7,12 @@ import 'package:movie_app_flutter/data/api/model/response_model.dart';
 
 class MovieApi with Api {
   Future<Response> getPopular(int page) => get(
-        uri: (Uri.parse("${Api.baseUrl}popular?language=en-US&page=$page")),
+        uri: Uri.parse("${Api.baseUrl}popular?language=en-US&page=$page"),
         mapper: (value) => ContentListResponse.fromJson(jsonDecode(value)),
       );
 
   Future<Response> getUpcoming(int page) => get(
-        uri: (Uri.parse("${Api.baseUrl}upcoming?language=en-US&page=$page")),
+        uri: Uri.parse("${Api.baseUrl}upcoming?language=en-US&page=$page"),
         mapper: (body) => ContentListResponse.fromJson(jsonDecode(body)),
       );
 

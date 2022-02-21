@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:http/http.dart' as http;
 import 'package:movie_app_flutter/data/api/model/response_model.dart';
 import 'package:movie_app_flutter/secret/secret.dart';
@@ -12,7 +15,14 @@ abstract class Api {
   }) {
     uri = _prepareUri(uri);
 
-    return http.get(uri, headers: headers).then((response) => _handleResponse(response, mapper));
+    return http.get(uri, headers: headers).then((response) => _handleResponse(response, mapper), onError: (e){
+      if(e is SocketException){
+        return NoInternetResponse();
+      } else if (e is TimeoutException){
+        return TimeoutResponse();
+      }
+      return GeneralErrorResponse();
+    });
   }
 
   Uri _prepareUri(Uri uri) {
