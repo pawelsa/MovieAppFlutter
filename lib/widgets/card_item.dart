@@ -109,8 +109,9 @@ class CardItem extends StatelessWidget {
                     height: posterHeight,
                     width: posterWidth,
                     child: Image.network(
-                      content.posterPath ?? "",
-                      errorBuilder: (context, _, __) => Container(
+                      content.posterPath?.path ?? "",
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, e, st) => Container(
                         color: MovieColors.noImage.withAlpha(30),
                       ),
                     ),
