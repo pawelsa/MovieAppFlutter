@@ -17,28 +17,25 @@ class MoviePage extends ConsumerWidget {
       context.text.moviesTabTheUpcoming,
     ];
 
+    final messenger = (String msg) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
     ref.listen(getPopularMoviesProvider(1), (_, AsyncValue<Result> result) {
-      debugPrint("MoviePage.build: ${result.asData}");
       if (result.asData?.value is ErrorResult) {
-        final messenger = (String msg) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
         result.asData?.value.whenOrNull(error: (cause) {
-          return cause.when(
-            noInternet: () => messenger("Lost connection when loading popular movies"),
-            databaseSave: () => messenger("We messed something up and could not update movies"),
-            unknown: () => messenger("Unexpected error happen when loading popular movies"),
+          cause.when(
+            noInternet: () => messenger(context.text.popularMoviesNoInternet),
+            databaseSave: () => messenger(context.text.popularMoviesDatabase),
+            unknown: () => messenger(context.text.popularMoviesUnknown),
           );
         });
       }
     });
     ref.listen(getUpcomingMoviesProvider(1), (_, AsyncValue<Result> result) {
-      debugPrint("MoviePage.build: ${result.asData}");
       if (result.asData?.value is ErrorResult) {
-        final messenger = (String msg) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
         result.asData?.value.whenOrNull(error: (cause) {
-          return cause.when(
-            noInternet: () => messenger("Lost connection when loading upcoming movies"),
-            databaseSave: () => messenger("We messed something up and could not update movies"),
-            unknown: () => messenger("Unexpected error happen when loading upcoming movies"),
+          cause.when(
+            noInternet: () => messenger(context.text.upcomingMoviesNoInternet),
+            databaseSave: () => messenger(context.text.upcomingMoviesDatabase),
+            unknown: () => messenger(context.text.upcomingMoviesUnknown),
           );
         });
       }

@@ -7,6 +7,7 @@ import 'package:movie_app_flutter/data/db/dao/person_dao.dart';
 import 'package:movie_app_flutter/data/db/dao/tv_show_dao.dart';
 import 'package:movie_app_flutter/data/db/model/tv_show_db.dart';
 import 'package:movie_app_flutter/data/repository/content_repository.dart';
+import 'package:movie_app_flutter/data/repository/result.dart';
 import 'package:movie_app_flutter/data/view/content_data.dart';
 import 'package:movie_app_flutter/data/view/content_detail_data.dart';
 
@@ -20,29 +21,28 @@ class TvShowRepository extends ContentRepository {
   final TvShowApi _tvShowApi;
   final TvShowDao _tvShowDao;
 
-  TvShowRepository(this._tvShowApi, this._tvShowDao, PeopleDao peopleDao)
-      : super(_tvShowDao, peopleDao, false);
+  TvShowRepository(this._tvShowApi, this._tvShowDao, PeopleDao peopleDao) : super(_tvShowDao, peopleDao, false);
 
-  Future<List<ContentDetailData>> getPopular(int page) async {
+  Future<Result> getPopular(int page) async {
     final response = await _tvShowApi.getPopular(page);
     if (response is ContentListResponse) {
       return _getTvShows(response, true);
     }
-    return <ContentDetailData>[];
+    return ErrorResult(ErrorCause.noInternet());
   }
 
-  Future<List<ContentDetailData>> getTopRated(int page) async {
+  Future<Result> getTopRated(int page) async {
     final response = await _tvShowApi.getTopRated(page);
     if (response is ContentListResponse) {
       return _getTvShows(response, false);
     }
-    return <ContentDetailData>[];
+    return ErrorResult(ErrorCause.noInternet());
   }
 
-  Future<List<ContentDetailData>> _getTvShows(
-      ContentListResponse content, bool arePopular) async {
-    final contentData = <ContentDetailData>[];
-    var order = 0;
+  Future<Result> _getTvShows(ContentListResponse content, bool arePopular) async {
+    var order = (content.page - 1) * content.results.length;
+
+    Result result = SuccessfulResult();
     for (var tvShow in content.results) {
       final tvShowCredits = await _tvShowApi.getCredits(tvShow.id);
       if (tvShowCredits is ApiCredits) {
@@ -50,32 +50,18 @@ class TvShowRepository extends ContentRepository {
 
         final director = tvShowCredits.crew
             .firstWhere(
-                (element) => element.job?.startsWith("Director") ?? false,
-                orElse: () => ApiPerson.empty())
+              (element) => element.job?.startsWith("Director") ?? false,
+              orElse: () => ApiPerson.empty(),
+            )
             .name;
         final stars = tvShowCredits.cast.take(2).map((e) => e.name).join(" / ");
 
-        await saveTvShowsInDb(
-            tvShow, arePopular, order++, director, stars, tvShowCredits);
-
-        contentData.add(
-          ContentDetailData(
-            id: tvShow.id,
-            title: tvShow.title,
-            grade: tvShow.voteAverage,
-            director: director,
-            stars: stars,
-            posterPath: tvShow.posterPath,
-            backdropPath: tvShow.backdropPath,
-            overview: tvShow.overview,
-            isCollected: false,
-            cast: mapCast(api: tvShowCredits.cast),
-            crew: mapCrew(api: tvShowCredits.crew),
-          ),
-        );
+        await saveTvShowsInDb(tvShow, arePopular, order++, director, stars, tvShowCredits);
+      } else {
+        result = ErrorResult(ErrorCause.unknown());
       }
     }
-    return contentData;
+    return result;
   }
 
   Future saveTvShowsInDb(ContentResponse content, bool arePopular, int order, String director, String stars,
