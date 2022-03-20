@@ -14,6 +14,414 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
+class _$ErrorCauseTearOff {
+  const _$ErrorCauseTearOff();
+
+  NoInternetError noInternet() {
+    return const NoInternetError();
+  }
+
+  DatabaseSaveError databaseSave() {
+    return const DatabaseSaveError();
+  }
+
+  UnknownError unknown() {
+    return const UnknownError();
+  }
+}
+
+/// @nodoc
+const $ErrorCause = _$ErrorCauseTearOff();
+
+/// @nodoc
+mixin _$ErrorCause {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() noInternet,
+    required TResult Function() databaseSave,
+    required TResult Function() unknown,
+  }) =>
+      throw _privateConstructorUsedError;
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? noInternet,
+    TResult Function()? databaseSave,
+    TResult Function()? unknown,
+  }) =>
+      throw _privateConstructorUsedError;
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? noInternet,
+    TResult Function()? databaseSave,
+    TResult Function()? unknown,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(NoInternetError value) noInternet,
+    required TResult Function(DatabaseSaveError value) databaseSave,
+    required TResult Function(UnknownError value) unknown,
+  }) =>
+      throw _privateConstructorUsedError;
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(NoInternetError value)? noInternet,
+    TResult Function(DatabaseSaveError value)? databaseSave,
+    TResult Function(UnknownError value)? unknown,
+  }) =>
+      throw _privateConstructorUsedError;
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(NoInternetError value)? noInternet,
+    TResult Function(DatabaseSaveError value)? databaseSave,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ErrorCauseCopyWith<$Res> {
+  factory $ErrorCauseCopyWith(ErrorCause value, $Res Function(ErrorCause) then) = _$ErrorCauseCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$ErrorCauseCopyWithImpl<$Res> implements $ErrorCauseCopyWith<$Res> {
+  _$ErrorCauseCopyWithImpl(this._value, this._then);
+
+  final ErrorCause _value;
+
+  // ignore: unused_field
+  final $Res Function(ErrorCause) _then;
+}
+
+/// @nodoc
+abstract class $NoInternetErrorCopyWith<$Res> {
+  factory $NoInternetErrorCopyWith(NoInternetError value, $Res Function(NoInternetError) then) =
+      _$NoInternetErrorCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$NoInternetErrorCopyWithImpl<$Res> extends _$ErrorCauseCopyWithImpl<$Res>
+    implements $NoInternetErrorCopyWith<$Res> {
+  _$NoInternetErrorCopyWithImpl(NoInternetError _value, $Res Function(NoInternetError) _then)
+      : super(_value, (v) => _then(v as NoInternetError));
+
+  @override
+  NoInternetError get _value => super._value as NoInternetError;
+}
+
+/// @nodoc
+
+class _$NoInternetError implements NoInternetError {
+  const _$NoInternetError();
+
+  @override
+  String toString() {
+    return 'ErrorCause.noInternet()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other.runtimeType == runtimeType && other is NoInternetError);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() noInternet,
+    required TResult Function() databaseSave,
+    required TResult Function() unknown,
+  }) {
+    return noInternet();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? noInternet,
+    TResult Function()? databaseSave,
+    TResult Function()? unknown,
+  }) {
+    return noInternet?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? noInternet,
+    TResult Function()? databaseSave,
+    TResult Function()? unknown,
+    required TResult orElse(),
+  }) {
+    if (noInternet != null) {
+      return noInternet();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(NoInternetError value) noInternet,
+    required TResult Function(DatabaseSaveError value) databaseSave,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return noInternet(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(NoInternetError value)? noInternet,
+    TResult Function(DatabaseSaveError value)? databaseSave,
+    TResult Function(UnknownError value)? unknown,
+  }) {
+    return noInternet?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(NoInternetError value)? noInternet,
+    TResult Function(DatabaseSaveError value)? databaseSave,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (noInternet != null) {
+      return noInternet(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NoInternetError implements ErrorCause {
+  const factory NoInternetError() = _$NoInternetError;
+}
+
+/// @nodoc
+abstract class $DatabaseSaveErrorCopyWith<$Res> {
+  factory $DatabaseSaveErrorCopyWith(DatabaseSaveError value, $Res Function(DatabaseSaveError) then) =
+      _$DatabaseSaveErrorCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$DatabaseSaveErrorCopyWithImpl<$Res> extends _$ErrorCauseCopyWithImpl<$Res>
+    implements $DatabaseSaveErrorCopyWith<$Res> {
+  _$DatabaseSaveErrorCopyWithImpl(DatabaseSaveError _value, $Res Function(DatabaseSaveError) _then)
+      : super(_value, (v) => _then(v as DatabaseSaveError));
+
+  @override
+  DatabaseSaveError get _value => super._value as DatabaseSaveError;
+}
+
+/// @nodoc
+
+class _$DatabaseSaveError implements DatabaseSaveError {
+  const _$DatabaseSaveError();
+
+  @override
+  String toString() {
+    return 'ErrorCause.databaseSave()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other.runtimeType == runtimeType && other is DatabaseSaveError);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() noInternet,
+    required TResult Function() databaseSave,
+    required TResult Function() unknown,
+  }) {
+    return databaseSave();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? noInternet,
+    TResult Function()? databaseSave,
+    TResult Function()? unknown,
+  }) {
+    return databaseSave?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? noInternet,
+    TResult Function()? databaseSave,
+    TResult Function()? unknown,
+    required TResult orElse(),
+  }) {
+    if (databaseSave != null) {
+      return databaseSave();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(NoInternetError value) noInternet,
+    required TResult Function(DatabaseSaveError value) databaseSave,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return databaseSave(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(NoInternetError value)? noInternet,
+    TResult Function(DatabaseSaveError value)? databaseSave,
+    TResult Function(UnknownError value)? unknown,
+  }) {
+    return databaseSave?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(NoInternetError value)? noInternet,
+    TResult Function(DatabaseSaveError value)? databaseSave,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (databaseSave != null) {
+      return databaseSave(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DatabaseSaveError implements ErrorCause {
+  const factory DatabaseSaveError() = _$DatabaseSaveError;
+}
+
+/// @nodoc
+abstract class $UnknownErrorCopyWith<$Res> {
+  factory $UnknownErrorCopyWith(UnknownError value, $Res Function(UnknownError) then) =
+      _$UnknownErrorCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$UnknownErrorCopyWithImpl<$Res> extends _$ErrorCauseCopyWithImpl<$Res> implements $UnknownErrorCopyWith<$Res> {
+  _$UnknownErrorCopyWithImpl(UnknownError _value, $Res Function(UnknownError) _then)
+      : super(_value, (v) => _then(v as UnknownError));
+
+  @override
+  UnknownError get _value => super._value as UnknownError;
+}
+
+/// @nodoc
+
+class _$UnknownError implements UnknownError {
+  const _$UnknownError();
+
+  @override
+  String toString() {
+    return 'ErrorCause.unknown()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other.runtimeType == runtimeType && other is UnknownError);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() noInternet,
+    required TResult Function() databaseSave,
+    required TResult Function() unknown,
+  }) {
+    return unknown();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? noInternet,
+    TResult Function()? databaseSave,
+    TResult Function()? unknown,
+  }) {
+    return unknown?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? noInternet,
+    TResult Function()? databaseSave,
+    TResult Function()? unknown,
+    required TResult orElse(),
+  }) {
+    if (unknown != null) {
+      return unknown();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(NoInternetError value) noInternet,
+    required TResult Function(DatabaseSaveError value) databaseSave,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return unknown(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(NoInternetError value)? noInternet,
+    TResult Function(DatabaseSaveError value)? databaseSave,
+    TResult Function(UnknownError value)? unknown,
+  }) {
+    return unknown?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(NoInternetError value)? noInternet,
+    TResult Function(DatabaseSaveError value)? databaseSave,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (unknown != null) {
+      return unknown(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UnknownError implements ErrorCause {
+  const factory UnknownError() = _$UnknownError;
+}
+
+/// @nodoc
 class _$ResultTearOff {
   const _$ResultTearOff();
 
@@ -21,7 +429,7 @@ class _$ResultTearOff {
     return const SuccessfulResult();
   }
 
-  ErrorResult error(dynamic error) {
+  ErrorResult error(ErrorCause error) {
     return ErrorResult(
       error,
     );
@@ -36,39 +444,34 @@ mixin _$Result {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() success,
-    required TResult Function(dynamic error) error,
+    required TResult Function(ErrorCause error) error,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? success,
-    TResult Function(dynamic error)? error,
+    TResult Function(ErrorCause error)? error,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? success,
-    TResult Function(dynamic error)? error,
+    TResult Function(ErrorCause error)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(SuccessfulResult value) success,
     required TResult Function(ErrorResult value) error,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(SuccessfulResult value)? success,
     TResult Function(ErrorResult value)? error,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(SuccessfulResult value)? success,
@@ -88,7 +491,6 @@ class _$ResultCopyWithImpl<$Res> implements $ResultCopyWith<$Res> {
   _$ResultCopyWithImpl(this._value, this._then);
 
   final Result _value;
-
   // ignore: unused_field
   final $Res Function(Result) _then;
 }
@@ -131,7 +533,7 @@ class _$SuccessfulResult implements SuccessfulResult {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() success,
-    required TResult Function(dynamic error) error,
+    required TResult Function(ErrorCause error) error,
   }) {
     return success();
   }
@@ -140,7 +542,7 @@ class _$SuccessfulResult implements SuccessfulResult {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? success,
-    TResult Function(dynamic error)? error,
+    TResult Function(ErrorCause error)? error,
   }) {
     return success?.call();
   }
@@ -149,7 +551,7 @@ class _$SuccessfulResult implements SuccessfulResult {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? success,
-    TResult Function(dynamic error)? error,
+    TResult Function(ErrorCause error)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -198,7 +600,9 @@ abstract class SuccessfulResult implements Result {
 abstract class $ErrorResultCopyWith<$Res> {
   factory $ErrorResultCopyWith(ErrorResult value, $Res Function(ErrorResult) then) = _$ErrorResultCopyWithImpl<$Res>;
 
-  $Res call({dynamic error});
+  $Res call({ErrorCause error});
+
+  $ErrorCauseCopyWith<$Res> get error;
 }
 
 /// @nodoc
@@ -217,8 +621,15 @@ class _$ErrorResultCopyWithImpl<$Res> extends _$ResultCopyWithImpl<$Res> impleme
       error == freezed
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as ErrorCause,
     ));
+  }
+
+  @override
+  $ErrorCauseCopyWith<$Res> get error {
+    return $ErrorCauseCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
   }
 }
 
@@ -228,7 +639,7 @@ class _$ErrorResult implements ErrorResult {
   const _$ErrorResult(this.error);
 
   @override
-  final dynamic error;
+  final ErrorCause error;
 
   @override
   String toString() {
@@ -254,7 +665,7 @@ class _$ErrorResult implements ErrorResult {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() success,
-    required TResult Function(dynamic error) error,
+    required TResult Function(ErrorCause error) error,
   }) {
     return error(this.error);
   }
@@ -263,7 +674,7 @@ class _$ErrorResult implements ErrorResult {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? success,
-    TResult Function(dynamic error)? error,
+    TResult Function(ErrorCause error)? error,
   }) {
     return error?.call(this.error);
   }
@@ -272,7 +683,7 @@ class _$ErrorResult implements ErrorResult {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? success,
-    TResult Function(dynamic error)? error,
+    TResult Function(ErrorCause error)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -314,9 +725,9 @@ class _$ErrorResult implements ErrorResult {
 }
 
 abstract class ErrorResult implements Result {
-  const factory ErrorResult(dynamic error) = _$ErrorResult;
+  const factory ErrorResult(ErrorCause error) = _$ErrorResult;
 
-  dynamic get error;
+  ErrorCause get error;
 
   @JsonKey(ignore: true)
   $ErrorResultCopyWith<ErrorResult> get copyWith => throw _privateConstructorUsedError;
@@ -332,7 +743,7 @@ class _$DataResultTearOff {
     );
   }
 
-  ErrorDataResult<T> error<T>(T data, dynamic error) {
+  ErrorDataResult<T> error<T>(T data, ErrorCause error) {
     return ErrorDataResult<T>(
       data,
       error,
@@ -350,39 +761,34 @@ mixin _$DataResult<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(T data) success,
-    required TResult Function(T data, dynamic error) error,
+    required TResult Function(T data, ErrorCause error) error,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(T data, dynamic error)? error,
+    TResult Function(T data, ErrorCause error)? error,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(T data, dynamic error)? error,
+    TResult Function(T data, ErrorCause error)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(SuccessfulDataResult<T> value) success,
     required TResult Function(ErrorDataResult<T> value) error,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(SuccessfulDataResult<T> value)? success,
     TResult Function(ErrorDataResult<T> value)? error,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(SuccessfulDataResult<T> value)? success,
@@ -458,7 +864,6 @@ class _$SuccessfulDataResultCopyWithImpl<T, $Res> extends _$DataResultCopyWithIm
 
 /// @nodoc
 
-@Implements<SuccessfulResult>()
 class _$SuccessfulDataResult<T> implements SuccessfulDataResult<T> {
   const _$SuccessfulDataResult(this.data);
 
@@ -490,7 +895,7 @@ class _$SuccessfulDataResult<T> implements SuccessfulDataResult<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(T data) success,
-    required TResult Function(T data, dynamic error) error,
+    required TResult Function(T data, ErrorCause error) error,
   }) {
     return success(data);
   }
@@ -499,7 +904,7 @@ class _$SuccessfulDataResult<T> implements SuccessfulDataResult<T> {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(T data, dynamic error)? error,
+    TResult Function(T data, ErrorCause error)? error,
   }) {
     return success?.call(data);
   }
@@ -508,7 +913,7 @@ class _$SuccessfulDataResult<T> implements SuccessfulDataResult<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(T data, dynamic error)? error,
+    TResult Function(T data, ErrorCause error)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -549,7 +954,7 @@ class _$SuccessfulDataResult<T> implements SuccessfulDataResult<T> {
   }
 }
 
-abstract class SuccessfulDataResult<T> implements DataResult<T>, dynamic {
+abstract class SuccessfulDataResult<T> implements DataResult<T> {
   const factory SuccessfulDataResult(T data) = _$SuccessfulDataResult<T>;
 
   @override
@@ -566,7 +971,9 @@ abstract class $ErrorDataResultCopyWith<T, $Res> implements $DataResultCopyWith<
       _$ErrorDataResultCopyWithImpl<T, $Res>;
 
   @override
-  $Res call({T data, dynamic error});
+  $Res call({T data, ErrorCause error});
+
+  $ErrorCauseCopyWith<$Res> get error;
 }
 
 /// @nodoc
@@ -591,21 +998,27 @@ class _$ErrorDataResultCopyWithImpl<T, $Res> extends _$DataResultCopyWithImpl<T,
       error == freezed
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as ErrorCause,
     ));
+  }
+
+  @override
+  $ErrorCauseCopyWith<$Res> get error {
+    return $ErrorCauseCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
   }
 }
 
 /// @nodoc
 
-@Implements<ErrorResult>()
 class _$ErrorDataResult<T> implements ErrorDataResult<T> {
   const _$ErrorDataResult(this.data, this.error);
 
   @override
   final T data;
   @override
-  final dynamic error;
+  final ErrorCause error;
 
   @override
   String toString() {
@@ -634,7 +1047,7 @@ class _$ErrorDataResult<T> implements ErrorDataResult<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(T data) success,
-    required TResult Function(T data, dynamic error) error,
+    required TResult Function(T data, ErrorCause error) error,
   }) {
     return error(data, this.error);
   }
@@ -643,7 +1056,7 @@ class _$ErrorDataResult<T> implements ErrorDataResult<T> {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(T data, dynamic error)? error,
+    TResult Function(T data, ErrorCause error)? error,
   }) {
     return error?.call(data, this.error);
   }
@@ -652,7 +1065,7 @@ class _$ErrorDataResult<T> implements ErrorDataResult<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(T data, dynamic error)? error,
+    TResult Function(T data, ErrorCause error)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -693,13 +1106,13 @@ class _$ErrorDataResult<T> implements ErrorDataResult<T> {
   }
 }
 
-abstract class ErrorDataResult<T> implements DataResult<T>, dynamic {
-  const factory ErrorDataResult(T data, dynamic error) = _$ErrorDataResult<T>;
+abstract class ErrorDataResult<T> implements DataResult<T> {
+  const factory ErrorDataResult(T data, ErrorCause error) = _$ErrorDataResult<T>;
 
   @override
   T get data;
 
-  dynamic get error;
+  ErrorCause get error;
 
   @override
   @JsonKey(ignore: true)

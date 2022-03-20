@@ -41,8 +41,7 @@ class CardItem extends StatelessWidget {
                 child: Material(
                   color: Colors.white,
                   elevation: 1.0,
-                  borderRadius:
-                      BorderRadius.circular(Dimen.cardItemBorderRadius),
+                  borderRadius: BorderRadius.circular(Dimen.cardItemBorderRadius),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       vertical: Dimen.cardItemColumnVerticalPadding,
@@ -51,8 +50,7 @@ class CardItem extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         SizedBox(
-                          width: posterWidth +
-                              2 * Dimen.cardItemPosterHorizontalPadding,
+                          width: posterWidth + 2 * Dimen.cardItemPosterHorizontalPadding,
                         ),
                         Expanded(
                           child: Column(
@@ -60,33 +58,26 @@ class CardItem extends StatelessWidget {
                             children: [
                               Row(
                                 mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                       child: Text(
                                     content.title,
-                                    style:
-                                        Theme.of(context).textTheme.headline2,
+                                    style: Theme.of(context).textTheme.headline2,
                                   )),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
-                                      horizontal:
-                                          Dimen.cardItemPosterHorizontalPadding,
+                                      horizontal: Dimen.cardItemPosterHorizontalPadding,
                                     ),
                                     child: Text(
                                       content.grade.toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline2!
-                                          .copyWith(color: MovieColors.yellow),
+                                      style: Theme.of(context).textTheme.headline2!.copyWith(color: MovieColors.yellow),
                                     ),
                                   ),
                                 ],
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 2.0),
+                                padding: const EdgeInsets.symmetric(vertical: 2.0),
                                 child: Text("categories"),
                               ),
                               Text(
@@ -112,22 +103,16 @@ class CardItem extends StatelessWidget {
                 ),
                 child: Material(
                   elevation: Dimen.cardItemPosterElevation,
-                  borderRadius:
-                      BorderRadius.circular(Dimen.cardItemBorderRadius),
+                  borderRadius: BorderRadius.circular(Dimen.cardItemBorderRadius),
                   clipBehavior: Clip.hardEdge,
                   child: Container(
                     height: posterHeight,
                     width: posterWidth,
-                    decoration: BoxDecoration(
-                      image: content.posterPath != null
-                          ? DecorationImage(
-                              image: NetworkImage(content.posterPath!.path),
-                              fit: BoxFit.cover,
-                            )
-                          : null,
-                      color: content.posterPath == null
-                          ? MovieColors.noImage
-                          : null,
+                    child: Image.network(
+                      content.posterPath ?? "",
+                      errorBuilder: (context, _, __) => Container(
+                        color: MovieColors.noImage.withAlpha(30),
+                      ),
                     ),
                   ),
                 ),
