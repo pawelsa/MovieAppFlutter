@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_app_flutter/data/api/model/response_model.dart';
 import 'package:movie_app_flutter/secret/secret.dart';
 
 abstract class Api {
-  static const baseUrl = "https://api.themoviedb.org/3/movie/";
+  static const baseUrl = "https://api.themoviedb.org/3/";
 
   Future<Response> get({
     required Uri uri,
@@ -14,14 +15,18 @@ abstract class Api {
     Map<String, String>? headers,
   }) {
     uri = _prepareUri(uri);
+    debugPrint("Api.get: $uri");
 
-    return http.get(uri, headers: headers).then((response) => _handleResponse(response, mapper), onError: _handleOnError);
+    return http
+        .get(uri, headers: headers)
+        .then((response) => _handleResponse(response, mapper), onError: _handleOnError);
   }
 
   ErrorResponse _handleOnError(e) {
-    if(e is SocketException){
+    debugPrint("Api._handleOnError: $e");
+    if (e is SocketException) {
       return NoInternetResponse();
-    } else if (e is TimeoutException){
+    } else if (e is TimeoutException) {
       return TimeoutResponse();
     }
     return GeneralErrorResponse();
@@ -35,6 +40,7 @@ abstract class Api {
   }
 
   Response _handleResponse(http.Response response, Response Function(String body) mapper) {
+    debugPrint("Api._handleResponse: ${response.statusCode}");
     switch (response.statusCode) {
       case 200:
         return mapper(response.body);

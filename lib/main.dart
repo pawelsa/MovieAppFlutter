@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_app_flutter/data/db/content_db.dart';
 import 'package:movie_app_flutter/pages/main/main_page.dart';
 import 'package:movie_app_flutter/resources/colors.dart';
 
 const fontItcAvantGardeStd = 'itc_avant_garde_std';
 const fontEthnocentric = 'Ethnocentric';
 
-void main() {
+void main() async {
+  await WidgetsFlutterBinding.ensureInitialized();
+  final _database = await $FloorContentDatabase.databaseBuilder('content_database.db').build();
+
   runApp(
     ProviderScope(
-      observers: [
+      overrides: [
+        databaseProvider.overrideWithValue(_database),
       ],
       child: MyApp(),
     ),

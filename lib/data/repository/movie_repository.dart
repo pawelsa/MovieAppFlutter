@@ -10,9 +10,9 @@ import 'package:movie_app_flutter/data/repository/content_repository.dart';
 import 'package:movie_app_flutter/data/view/content_data.dart';
 import 'package:movie_app_flutter/data/view/content_detail_data.dart';
 
-final movieRepositoryProvider = FutureProvider<MovieRepository>((ref) async {
-  final contentDao = await ref.watch(movieDaoProvider.future);
-  final peopleDao = await ref.watch(peopleDaoProvider.future);
+final movieRepositoryProvider = Provider<MovieRepository>((ref) {
+  final contentDao = ref.watch(movieDaoProvider);
+  final peopleDao = ref.watch(peopleDaoProvider);
   return MovieRepository(MovieApi(), contentDao, peopleDao);
 });
 
@@ -34,7 +34,7 @@ class MovieRepository extends ContentRepository {
   Future<List<ContentDetailData>> getUpcomingMovies(int page) =>
       _movieApi.getUpcoming(page).then((content) {
         if (content is ContentListResponse) {
-          return _getMoviesWithResp(content, true);
+          return _getMoviesWithResp(content, false);
         }
         return <ContentDetailData>[];
       });
@@ -46,7 +46,6 @@ class MovieRepository extends ContentRepository {
 
     for (var movie in content.results) {
       final movieCredits = await _movieApi.getCredits(movie.id);
-
       if (movieCredits is ApiCredits) {
         movieCredits.cast.sort((a, b) => a.order!.compareTo(b.order!));
 
@@ -80,22 +79,18 @@ class MovieRepository extends ContentRepository {
     return contentData;
   }
 
-  Future saveMoviesInDb(ContentResponse content, bool arePopular, int order,
-      String director, String stars, ApiCredits movieCredits) async {
+  Future saveMoviesInDb(ContentResponse content, bool arePopular, int order, String director, String stars,
+      ApiCredits movieCredits) async {
     final dbMovie = MovieDb(content.id, arePopular, order);
-    await saveContentInDb(
-        content, director, stars, movieCredits, _movieDao.insertMovie(dbMovie));
+    await saveContentInDb(content, director, stars, movieCredits, _movieDao.insertMovie(dbMovie));
   }
 
-  Future<List<ContentDetailData>> getDetailedUpcomingFromDb() =>
-      _movieDao.findAllUpcoming().then(getDetailsFromDb);
+  Stream<List<ContentDetailData>> observeDetailedUpcoming() =>
+      _movieDao.observeAllUpcoming().asyncMap(getDetailsFromDb);
 
-  Future<List<ContentDetailData>> getDetailedPopularFromDb() =>
-      _movieDao.findAllPopular().then(getDetailsFromDb);
+  Stream<List<ContentDetailData>> observeDetailedPopular() => _movieDao.observeAllPopular().asyncMap(getDetailsFromDb);
 
-  Future<List<ContentData>> getUpcomingFromDb() =>
-      _movieDao.findAllUpcoming().then(getContentFromDb);
+  Stream<List<ContentData>> observeUpcoming() => _movieDao.observeAllUpcoming().map(getContentFromDb);
 
-  Future<List<ContentData>> getPopularFromDb() =>
-      _movieDao.findAllPopular().then(getContentFromDb);
+  Stream<List<ContentData>> observePopular() => _movieDao.observeAllPopular().map(getContentFromDb);
 }

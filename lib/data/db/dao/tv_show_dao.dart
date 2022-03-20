@@ -6,16 +6,14 @@ import 'package:movie_app_flutter/data/db/model/tv_show_db.dart';
 
 @dao
 abstract class TvShowDao extends ContentDao {
-  @Insert()
+  @Insert(onConflict: OnConflictStrategy.replace)
   Future<void> insertTvShow(TvShowDb dbTvShow);
 
-  @Query(
-      "SELECT c.* FROM content c JOIN tv_show t ON c.id = t.id WHERE t.is_popular = 1 ORDER BY t.`order`")
-  Future<List<ContentDb>> findAllPopular();
+  @Query("SELECT c.* FROM content c JOIN tv_show t ON c.id = t.id WHERE t.is_popular = 1 ORDER BY t.`order`")
+  Stream<List<ContentDb>> observeAllPopular();
 
-  @Query(
-      "SELECT c.* FROM content c JOIN tv_show t ON c.id = t.id WHERE t.is_popular = 1 ORDER BY t.`order`")
-  Future<List<ContentDb>> findAllTopRated();
+  @Query("SELECT c.* FROM content c JOIN tv_show t ON c.id = t.id WHERE t.is_popular = 0 ORDER BY t.`order`")
+  Stream<List<ContentDb>> observeAllTopRated();
 
   @Query(
       "SELECT p.* FROM content_person c JOIN persons p ON c.person_id = p.id WHERE c.content_id = :contentId AND c.credit_id = p.credit_id AND c.is_cast = 0 AND c.is_movie = 0")

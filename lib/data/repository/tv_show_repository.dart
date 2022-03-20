@@ -10,9 +10,9 @@ import 'package:movie_app_flutter/data/repository/content_repository.dart';
 import 'package:movie_app_flutter/data/view/content_data.dart';
 import 'package:movie_app_flutter/data/view/content_detail_data.dart';
 
-final tvShowRepositoryProvider = FutureProvider<TvShowRepository>((ref) async {
-  final tvShowDao = await ref.watch(tvShowDaoProvider.future);
-  final peopleDao = await ref.watch(peopleDaoProvider.future);
+final tvShowRepositoryProvider = Provider<TvShowRepository>((ref) {
+  final tvShowDao = ref.watch(tvShowDaoProvider);
+  final peopleDao = ref.watch(peopleDaoProvider);
   return TvShowRepository(TvShowApi(), tvShowDao, peopleDao);
 });
 
@@ -78,22 +78,18 @@ class TvShowRepository extends ContentRepository {
     return contentData;
   }
 
-  Future saveTvShowsInDb(ContentResponse content, bool arePopular, int order,
-      String director, String stars, ApiCredits movieCredits) async {
+  Future saveTvShowsInDb(ContentResponse content, bool arePopular, int order, String director, String stars,
+      ApiCredits movieCredits) async {
     final dbTvShow = TvShowDb(content.id, arePopular, order);
-    await saveContentInDb(content, director, stars, movieCredits,
-        _tvShowDao.insertTvShow(dbTvShow));
+    await saveContentInDb(content, director, stars, movieCredits, _tvShowDao.insertTvShow(dbTvShow));
   }
 
-  Future<List<ContentDetailData>> getDetailedTopRatedFromDb() =>
-      _tvShowDao.findAllTopRated().then(getDetailsFromDb);
+  Stream<List<ContentDetailData>> observeDetailedTopRated() =>
+      _tvShowDao.observeAllTopRated().asyncMap(getDetailsFromDb);
 
-  Future<List<ContentDetailData>> getDetailedPopularFromDb() =>
-      _tvShowDao.findAllPopular().then(getDetailsFromDb);
+  Stream<List<ContentDetailData>> observeDetailedPopular() => _tvShowDao.observeAllPopular().asyncMap(getDetailsFromDb);
 
-  Future<List<ContentData>> getTopRatedFromDb() =>
-      _tvShowDao.findAllTopRated().then(getContentFromDb);
+  Stream<List<ContentData>> observeTopRated() => _tvShowDao.observeAllTopRated().map(getContentFromDb);
 
-  Future<List<ContentData>> getPopularFromDb() =>
-      _tvShowDao.findAllPopular().then(getContentFromDb);
+  Stream<List<ContentData>> observePopular() => _tvShowDao.observeAllPopular().map(getContentFromDb);
 }

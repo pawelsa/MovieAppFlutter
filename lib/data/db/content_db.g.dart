@@ -86,11 +86,11 @@ class _$ContentDatabase extends ContentDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `content` (`id` INTEGER NOT NULL, `is_movie` INTEGER NOT NULL, `title` TEXT NOT NULL, `grade` REAL NOT NULL, `director` TEXT NOT NULL, `stars` TEXT NOT NULL, `poster_path` TEXT, `backdrop_path` TEXT, `overview` TEXT NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `content` (`id` INTEGER NOT NULL, `is_movie` INTEGER NOT NULL, `title` TEXT NOT NULL, `grade` REAL NOT NULL, `director` TEXT NOT NULL, `stars` TEXT NOT NULL, `poster_path` TEXT, `backdrop_path` TEXT, `overview` TEXT NOT NULL, PRIMARY KEY (`id`, `is_movie`))');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `persons` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `profile_path` TEXT, `character` TEXT, `order` INTEGER, `department` TEXT, `job` TEXT, `credit_id` TEXT NOT NULL, PRIMARY KEY (`id`, `credit_id`))');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `content_person` (`content_id` INTEGER NOT NULL, `person_id` INTEGER NOT NULL, `credit_id` TEXT NOT NULL, `is_movie` INTEGER NOT NULL, `is_cast` INTEGER NOT NULL, `order` INTEGER, FOREIGN KEY (`content_id`) REFERENCES `content` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION, FOREIGN KEY (`person_id`, `credit_id`) REFERENCES `persons` (`id`, `credit_id`) ON UPDATE NO ACTION ON DELETE NO ACTION, PRIMARY KEY (`content_id`, `person_id`, `credit_id`))');
+            'CREATE TABLE IF NOT EXISTS `content_person` (`content_id` INTEGER NOT NULL, `person_id` INTEGER NOT NULL, `credit_id` TEXT NOT NULL, `is_movie` INTEGER NOT NULL, `is_cast` INTEGER NOT NULL, `order` INTEGER, FOREIGN KEY (`content_id`, `is_movie`) REFERENCES `content` (`id`, `is_movie`) ON UPDATE NO ACTION ON DELETE NO ACTION, FOREIGN KEY (`person_id`, `credit_id`) REFERENCES `persons` (`id`, `credit_id`) ON UPDATE NO ACTION ON DELETE NO ACTION, PRIMARY KEY (`content_id`, `person_id`, `credit_id`))');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `movie` (`id` INTEGER NOT NULL, `is_popular` INTEGER NOT NULL, `order` INTEGER NOT NULL, PRIMARY KEY (`id`, `is_popular`))');
         await database.execute(
@@ -149,15 +149,12 @@ class _$PeopleDao extends PeopleDao {
 
 class _$MovieDao extends MovieDao {
   _$MovieDao(this.database, this.changeListener)
-      : _queryAdapter = QueryAdapter(database),
+      : _queryAdapter = QueryAdapter(database, changeListener),
         _movieDbInsertionAdapter = InsertionAdapter(
             database,
             'movie',
-            (MovieDb item) => <String, Object?>{
-                  'id': item.id,
-                  'is_popular': item.isPopular ? 1 : 0,
-                  'order': item.order
-                }),
+            (MovieDb item) =>
+                <String, Object?>{'id': item.id, 'is_popular': item.isPopular ? 1 : 0, 'order': item.order}),
         _contentDbInsertionAdapter = InsertionAdapter(
             database,
             'content',
@@ -171,11 +168,12 @@ class _$MovieDao extends MovieDao {
                   'poster_path': item.posterPath,
                   'backdrop_path': item.backdropPath,
                   'overview': item.overview
-                }),
+                },
+            changeListener),
         _contentPersonDbInsertionAdapter = InsertionAdapter(
             database,
             'content_person',
-                (ContentPersonDb item) => <String, Object?>{
+            (ContentPersonDb item) => <String, Object?>{
                   'content_id': item.contentId,
                   'person_id': item.personId,
                   'credit_id': item.creditId,
@@ -213,8 +211,8 @@ class _$MovieDao extends MovieDao {
   }
 
   @override
-  Future<List<ContentDb>> findAllPopular() async {
-    return _queryAdapter.queryList(
+  Stream<List<ContentDb>> observeAllPopular() {
+    return _queryAdapter.queryListStream(
         'SELECT c.* FROM content c JOIN movie m ON c.id = m.id WHERE m.is_popular = 1 ORDER BY m.`order`',
         mapper: (Map<String, Object?> row) => ContentDb(
             row['id'] as int,
@@ -225,13 +223,15 @@ class _$MovieDao extends MovieDao {
             row['stars'] as String,
             row['poster_path'] as String?,
             row['backdrop_path'] as String?,
-            row['overview'] as String));
+            row['overview'] as String),
+        queryableName: 'content',
+        isView: false);
   }
 
   @override
-  Future<List<ContentDb>> findAllUpcoming() async {
-    return _queryAdapter.queryList(
-        'SELECT c.* FROM content c JOIN movie m ON c.id = m.id WHERE m.is_popular = 1 ORDER BY m.`order`',
+  Stream<List<ContentDb>> observeAllUpcoming() {
+    return _queryAdapter.queryListStream(
+        'SELECT c.* FROM content c JOIN movie m ON c.id = m.id WHERE m.is_popular = 0 ORDER BY m.`order`',
         mapper: (Map<String, Object?> row) => ContentDb(
             row['id'] as int,
             (row['is_movie'] as int) != 0,
@@ -241,7 +241,9 @@ class _$MovieDao extends MovieDao {
             row['stars'] as String,
             row['poster_path'] as String?,
             row['backdrop_path'] as String?,
-            row['overview'] as String));
+            row['overview'] as String),
+        queryableName: 'content',
+        isView: false);
   }
 
   @override
@@ -263,39 +265,33 @@ class _$MovieDao extends MovieDao {
 
   @override
   Future<void> insertMovie(MovieDb movie) async {
-    await _movieDbInsertionAdapter.insert(movie, OnConflictStrategy.ignore);
+    await _movieDbInsertionAdapter.insert(movie, OnConflictStrategy.replace);
   }
 
   @override
   Future<void> insertAll(List<ContentDb> content) async {
-    await _contentDbInsertionAdapter.insertList(
-        content, OnConflictStrategy.abort);
+    await _contentDbInsertionAdapter.insertList(content, OnConflictStrategy.replace);
   }
 
   @override
   Future<void> insert(ContentDb dbContent) async {
-    await _contentDbInsertionAdapter.insert(
-        dbContent, OnConflictStrategy.ignore);
+    await _contentDbInsertionAdapter.insert(dbContent, OnConflictStrategy.replace);
   }
 
   @override
   Future<void> insertContentPersons(List<ContentPersonDb> moviePeople) async {
-    await _contentPersonDbInsertionAdapter.insertList(
-        moviePeople, OnConflictStrategy.ignore);
+    await _contentPersonDbInsertionAdapter.insertList(moviePeople, OnConflictStrategy.replace);
   }
 }
 
 class _$TvShowDao extends TvShowDao {
   _$TvShowDao(this.database, this.changeListener)
-      : _queryAdapter = QueryAdapter(database),
+      : _queryAdapter = QueryAdapter(database, changeListener),
         _tvShowDbInsertionAdapter = InsertionAdapter(
             database,
             'tv_show',
-            (TvShowDb item) => <String, Object?>{
-                  'id': item.id,
-                  'is_popular': item.isPopular ? 1 : 0,
-                  'order': item.order
-                }),
+            (TvShowDb item) =>
+                <String, Object?>{'id': item.id, 'is_popular': item.isPopular ? 1 : 0, 'order': item.order}),
         _contentDbInsertionAdapter = InsertionAdapter(
             database,
             'content',
@@ -309,11 +305,12 @@ class _$TvShowDao extends TvShowDao {
                   'poster_path': item.posterPath,
                   'backdrop_path': item.backdropPath,
                   'overview': item.overview
-                }),
+                },
+            changeListener),
         _contentPersonDbInsertionAdapter = InsertionAdapter(
             database,
             'content_person',
-                (ContentPersonDb item) => <String, Object?>{
+            (ContentPersonDb item) => <String, Object?>{
                   'content_id': item.contentId,
                   'person_id': item.personId,
                   'credit_id': item.creditId,
@@ -335,8 +332,8 @@ class _$TvShowDao extends TvShowDao {
   final InsertionAdapter<ContentPersonDb> _contentPersonDbInsertionAdapter;
 
   @override
-  Future<List<ContentDb>> findAllPopular() async {
-    return _queryAdapter.queryList(
+  Stream<List<ContentDb>> observeAllPopular() {
+    return _queryAdapter.queryListStream(
         'SELECT c.* FROM content c JOIN tv_show t ON c.id = t.id WHERE t.is_popular = 1 ORDER BY t.`order`',
         mapper: (Map<String, Object?> row) => ContentDb(
             row['id'] as int,
@@ -347,13 +344,15 @@ class _$TvShowDao extends TvShowDao {
             row['stars'] as String,
             row['poster_path'] as String?,
             row['backdrop_path'] as String?,
-            row['overview'] as String));
+            row['overview'] as String),
+        queryableName: 'content',
+        isView: false);
   }
 
   @override
-  Future<List<ContentDb>> findAllTopRated() async {
-    return _queryAdapter.queryList(
-        'SELECT c.* FROM content c JOIN tv_show t ON c.id = t.id WHERE t.is_popular = 1 ORDER BY t.`order`',
+  Stream<List<ContentDb>> observeAllTopRated() {
+    return _queryAdapter.queryListStream(
+        'SELECT c.* FROM content c JOIN tv_show t ON c.id = t.id WHERE t.is_popular = 0 ORDER BY t.`order`',
         mapper: (Map<String, Object?> row) => ContentDb(
             row['id'] as int,
             (row['is_movie'] as int) != 0,
@@ -363,7 +362,9 @@ class _$TvShowDao extends TvShowDao {
             row['stars'] as String,
             row['poster_path'] as String?,
             row['backdrop_path'] as String?,
-            row['overview'] as String));
+            row['overview'] as String),
+        queryableName: 'content',
+        isView: false);
   }
 
   @override
@@ -401,24 +402,21 @@ class _$TvShowDao extends TvShowDao {
 
   @override
   Future<void> insertTvShow(TvShowDb dbTvShow) async {
-    await _tvShowDbInsertionAdapter.insert(dbTvShow, OnConflictStrategy.abort);
+    await _tvShowDbInsertionAdapter.insert(dbTvShow, OnConflictStrategy.replace);
   }
 
   @override
   Future<void> insertAll(List<ContentDb> content) async {
-    await _contentDbInsertionAdapter.insertList(
-        content, OnConflictStrategy.abort);
+    await _contentDbInsertionAdapter.insertList(content, OnConflictStrategy.replace);
   }
 
   @override
   Future<void> insert(ContentDb dbContent) async {
-    await _contentDbInsertionAdapter.insert(
-        dbContent, OnConflictStrategy.ignore);
+    await _contentDbInsertionAdapter.insert(dbContent, OnConflictStrategy.replace);
   }
 
   @override
   Future<void> insertContentPersons(List<ContentPersonDb> moviePeople) async {
-    await _contentPersonDbInsertionAdapter.insertList(
-        moviePeople, OnConflictStrategy.ignore);
+    await _contentPersonDbInsertionAdapter.insertList(moviePeople, OnConflictStrategy.replace);
   }
 }

@@ -4,16 +4,14 @@ import 'package:movie_app_flutter/data/repository/movie_repository.dart';
 import 'package:movie_app_flutter/data/use_case/get_content.dart';
 import 'package:movie_app_flutter/data/view/content_detail_data.dart';
 
-final getPopularMoviesProvider =
-    FutureProvider.family<List<ContentDetailData>, int>((ref, page) async {
-  final repository = await ref.watch(movieRepositoryProvider.future);
+final getPopularMoviesProvider = FutureProvider.family<List<ContentDetailData>, int>((ref, page) {
+  final repository = ref.watch(movieRepositoryProvider);
   debugPrint("getPopularMoviesProvider:obtaining - page: $page");
   return repository.getPopularMovies(page);
 });
 
-final getUpcomingMoviesProvider =
-    FutureProvider.family<List<ContentDetailData>, int>((ref, page) async {
-      final repository = await ref.watch(movieRepositoryProvider.future);
+final getUpcomingMoviesProvider = FutureProvider.family<List<ContentDetailData>, int>((ref, page) {
+  final repository = ref.watch(movieRepositoryProvider);
   debugPrint("getUpcomingMoviesProvider:obtaining - page: $page");
   return repository.getUpcomingMovies(page);
 });

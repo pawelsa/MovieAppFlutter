@@ -45,18 +45,14 @@ const $ContentListResponse = _$ContentListResponseTearOff();
 /// @nodoc
 mixin _$ContentListResponse {
   int get page => throw _privateConstructorUsedError;
-
   @ContentResponseConverter()
   List<ContentResponse> get results => throw _privateConstructorUsedError;
-
   @JsonKey(name: "total_pages")
   int get totalPages => throw _privateConstructorUsedError;
-
   @JsonKey(name: "total_results")
   int get totalResults => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
   $ContentListResponseCopyWith<ContentListResponse> get copyWith =>
       throw _privateConstructorUsedError;
@@ -67,7 +63,6 @@ abstract class $ContentListResponseCopyWith<$Res> {
   factory $ContentListResponseCopyWith(
           ContentListResponse value, $Res Function(ContentListResponse) then) =
       _$ContentListResponseCopyWithImpl<$Res>;
-
   $Res call(
       {int page,
       @ContentResponseConverter() List<ContentResponse> results,
@@ -81,7 +76,6 @@ class _$ContentListResponseCopyWithImpl<$Res>
   _$ContentListResponseCopyWithImpl(this._value, this._then);
 
   final ContentListResponse _value;
-
   // ignore: unused_field
   final $Res Function(ContentListResponse) _then;
 
@@ -119,7 +113,6 @@ abstract class _$ContentListResponseCopyWith<$Res>
   factory _$ContentListResponseCopyWith(_ContentListResponse value,
           $Res Function(_ContentListResponse) then) =
       __$ContentListResponseCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {int page,
@@ -245,19 +238,15 @@ abstract class _ContentListResponse
 
   @override
   int get page;
-
   @override
   @ContentResponseConverter()
   List<ContentResponse> get results;
-
   @override
   @JsonKey(name: "total_pages")
   int get totalPages;
-
   @override
   @JsonKey(name: "total_results")
   int get totalResults;
-
   @override
   @JsonKey(ignore: true)
   _$ContentListResponseCopyWith<_ContentListResponse> get copyWith =>
@@ -338,25 +327,17 @@ const $ContentResponse = _$ContentResponseTearOff();
 /// @nodoc
 mixin _$ContentResponse {
   int get id => throw _privateConstructorUsedError;
-
   String get title => throw _privateConstructorUsedError;
-
   @JsonKey(name: "poster_path")
   String? get posterPath => throw _privateConstructorUsedError;
-
   @JsonKey(name: "backdrop_path")
   String? get backdropPath => throw _privateConstructorUsedError;
-
   @JsonKey(name: "genre_ids")
   List<int> get genreIds => throw _privateConstructorUsedError;
-
   String get overview => throw _privateConstructorUsedError;
-
   double get popularity => throw _privateConstructorUsedError;
-
   @JsonKey(name: "first_air_date")
   DateTime? get firstAirDate => throw _privateConstructorUsedError;
-
   @JsonKey(name: "vote_average")
   double get voteAverage => throw _privateConstructorUsedError;
 
@@ -386,7 +367,6 @@ mixin _$ContentResponse {
         fromTvShow,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(
@@ -413,7 +393,6 @@ mixin _$ContentResponse {
         fromTvShow,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
@@ -441,21 +420,18 @@ mixin _$ContentResponse {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_MovieResponse value) fromMovie,
     required TResult Function(_TvShowResponse value) fromTvShow,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_MovieResponse value)? fromMovie,
     TResult Function(_TvShowResponse value)? fromTvShow,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_MovieResponse value)? fromMovie,
@@ -463,9 +439,7 @@ mixin _$ContentResponse {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
   $ContentResponseCopyWith<ContentResponse> get copyWith =>
       throw _privateConstructorUsedError;
@@ -476,7 +450,6 @@ abstract class $ContentResponseCopyWith<$Res> {
   factory $ContentResponseCopyWith(
           ContentResponse value, $Res Function(ContentResponse) then) =
       _$ContentResponseCopyWithImpl<$Res>;
-
   $Res call(
       {int id,
       String title,
@@ -495,7 +468,6 @@ class _$ContentResponseCopyWithImpl<$Res>
   _$ContentResponseCopyWithImpl(this._value, this._then);
 
   final ContentResponse _value;
-
   // ignore: unused_field
   final $Res Function(ContentResponse) _then;
 
@@ -558,7 +530,6 @@ abstract class _$MovieResponseCopyWith<$Res>
   factory _$MovieResponseCopyWith(
           _MovieResponse value, $Res Function(_MovieResponse) then) =
       __$MovieResponseCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {int id,
@@ -876,36 +847,27 @@ abstract class _MovieResponse implements ContentResponse {
 
   @override
   int get id;
-
   @override
   String get title;
-
   @override
   @JsonKey(name: "poster_path")
   String? get posterPath;
-
   @override
   @JsonKey(name: "backdrop_path")
   String? get backdropPath;
-
   @override
   @JsonKey(name: "genre_ids")
   List<int> get genreIds;
-
   @override
   String get overview;
-
   @override
   double get popularity;
-
   @override
   @JsonKey(name: "first_air_date")
   DateTime? get firstAirDate;
-
   @override
   @JsonKey(name: "vote_average")
   double get voteAverage;
-
   @override
   @JsonKey(ignore: true)
   _$MovieResponseCopyWith<_MovieResponse> get copyWith =>
@@ -918,7 +880,6 @@ abstract class _$TvShowResponseCopyWith<$Res>
   factory _$TvShowResponseCopyWith(
           _TvShowResponse value, $Res Function(_TvShowResponse) then) =
       __$TvShowResponseCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {int id,
@@ -1237,37 +1198,28 @@ abstract class _TvShowResponse implements ContentResponse {
 
   @override
   int get id;
-
   @override
   @JsonKey(name: "name")
   String get title;
-
   @override
   @JsonKey(name: "poster_path")
   String? get posterPath;
-
   @override
   @JsonKey(name: "backdrop_path")
   String? get backdropPath;
-
   @override
   @JsonKey(name: "genre_ids")
   List<int> get genreIds;
-
   @override
   String get overview;
-
   @override
   double get popularity;
-
   @override
   @JsonKey(name: "release_date")
   DateTime? get firstAirDate;
-
   @override
   @JsonKey(name: "vote_average")
   double get voteAverage;
-
   @override
   @JsonKey(ignore: true)
   _$TvShowResponseCopyWith<_TvShowResponse> get copyWith =>

@@ -14,29 +14,42 @@ import 'package:sqflite/sqflite.dart' as sqflite;
 
 part 'content_db.g.dart';
 
-final _databaseProvider = FutureProvider<ContentDatabase>((ref) {
-  return $FloorContentDatabase.databaseBuilder('content_database.db').build();
+final databaseProvider = Provider<ContentDatabase>((ref) {
+  return _TemporaryDatabase();
 });
 
-final peopleDaoProvider = FutureProvider<PeopleDao>((ref) async {
-  final db = await ref.watch(_databaseProvider.future);
+final peopleDaoProvider = Provider<PeopleDao>((ref) {
+  final db = ref.watch(databaseProvider);
   return db.peopleDao;
 });
 
-final movieDaoProvider = FutureProvider<MovieDao>((ref) async {
-  final db = await ref.watch(_databaseProvider.future);
+final movieDaoProvider = Provider<MovieDao>((ref) {
+  final db = ref.watch(databaseProvider);
   return db.movieDao;
 });
 
-final tvShowDaoProvider = FutureProvider<TvShowDao>((ref) async {
-  final db = await ref.watch(_databaseProvider.future);
+final tvShowDaoProvider = Provider<TvShowDao>((ref) {
+  final db = ref.watch(databaseProvider);
   return db.tvShowDao;
 });
 
+/// Database that is used to fulfil Provider,
+/// as we want to avoid using FutureProvider for database.
+/// This implementation is replaced with the actual implementation
+/// before runApp function is executed
+class _TemporaryDatabase extends ContentDatabase {
+  @override
+  MovieDao get movieDao => throw UnimplementedError();
+
+  @override
+  PeopleDao get peopleDao => throw UnimplementedError();
+
+  @override
+  TvShowDao get tvShowDao => throw UnimplementedError();
+}
+
 // flutter packages pub run build_runner build
-@Database(
-    version: 1,
-    entities: [ContentDb, PersonDb, ContentPersonDb, MovieDb, TvShowDb])
+@Database(version: 1, entities: [ContentDb, PersonDb, ContentPersonDb, MovieDb, TvShowDb])
 abstract class ContentDatabase extends FloorDatabase {
   PeopleDao get peopleDao;
 

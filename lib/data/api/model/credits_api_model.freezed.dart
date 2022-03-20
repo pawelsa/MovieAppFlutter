@@ -43,15 +43,12 @@ const $ApiCredits = _$ApiCreditsTearOff();
 /// @nodoc
 mixin _$ApiCredits {
   int get id => throw _privateConstructorUsedError;
-
   @ApiPersonConverter()
   List<ApiPerson> get cast => throw _privateConstructorUsedError;
-
   @ApiPersonConverter()
   List<ApiPerson> get crew => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
   $ApiCreditsCopyWith<ApiCredits> get copyWith =>
       throw _privateConstructorUsedError;
@@ -62,7 +59,6 @@ abstract class $ApiCreditsCopyWith<$Res> {
   factory $ApiCreditsCopyWith(
           ApiCredits value, $Res Function(ApiCredits) then) =
       _$ApiCreditsCopyWithImpl<$Res>;
-
   $Res call(
       {int id,
       @ApiPersonConverter() List<ApiPerson> cast,
@@ -74,7 +70,6 @@ class _$ApiCreditsCopyWithImpl<$Res> implements $ApiCreditsCopyWith<$Res> {
   _$ApiCreditsCopyWithImpl(this._value, this._then);
 
   final ApiCredits _value;
-
   // ignore: unused_field
   final $Res Function(ApiCredits) _then;
 
@@ -106,7 +101,6 @@ abstract class _$ApiCreditsCopyWith<$Res> implements $ApiCreditsCopyWith<$Res> {
   factory _$ApiCreditsCopyWith(
           _ApiCredits value, $Res Function(_ApiCredits) then) =
       __$ApiCreditsCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {int id,
@@ -212,15 +206,12 @@ abstract class _ApiCredits implements ApiCredits {
 
   @override
   int get id;
-
   @override
   @ApiPersonConverter()
   List<ApiPerson> get cast;
-
   @override
   @ApiPersonConverter()
   List<ApiPerson> get crew;
-
   @override
   @JsonKey(ignore: true)
   _$ApiCreditsCopyWith<_ApiCredits> get copyWith =>
@@ -297,20 +288,13 @@ const $ApiPerson = _$ApiPersonTearOff();
 /// @nodoc
 mixin _$ApiPerson {
   int get id => throw _privateConstructorUsedError;
-
   String get name => throw _privateConstructorUsedError;
-
   @JsonKey(name: "profile_path")
   String? get profilePath => throw _privateConstructorUsedError;
-
   String? get character => throw _privateConstructorUsedError;
-
   int? get order => throw _privateConstructorUsedError;
-
   String? get department => throw _privateConstructorUsedError;
-
   String? get job => throw _privateConstructorUsedError;
-
   @JsonKey(name: "credit_id")
   String get creditId => throw _privateConstructorUsedError;
 
@@ -338,7 +322,6 @@ mixin _$ApiPerson {
         empty,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult Function(
@@ -363,7 +346,6 @@ mixin _$ApiPerson {
         empty,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
@@ -389,21 +371,18 @@ mixin _$ApiPerson {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
     TResult Function(_ApiPerson value) $default, {
     required TResult Function(_ApiPersonEmpty value) empty,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
     TResult Function(_ApiPerson value)? $default, {
     TResult Function(_ApiPersonEmpty value)? empty,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_ApiPerson value)? $default, {
@@ -411,9 +390,7 @@ mixin _$ApiPerson {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
   $ApiPersonCopyWith<ApiPerson> get copyWith =>
       throw _privateConstructorUsedError;
@@ -423,7 +400,6 @@ mixin _$ApiPerson {
 abstract class $ApiPersonCopyWith<$Res> {
   factory $ApiPersonCopyWith(ApiPerson value, $Res Function(ApiPerson) then) =
       _$ApiPersonCopyWithImpl<$Res>;
-
   $Res call(
       {int id,
       String name,
@@ -440,7 +416,6 @@ class _$ApiPersonCopyWithImpl<$Res> implements $ApiPersonCopyWith<$Res> {
   _$ApiPersonCopyWithImpl(this._value, this._then);
 
   final ApiPerson _value;
-
   // ignore: unused_field
   final $Res Function(ApiPerson) _then;
 
@@ -497,7 +472,6 @@ abstract class _$ApiPersonCopyWith<$Res> implements $ApiPersonCopyWith<$Res> {
   factory _$ApiPersonCopyWith(
           _ApiPerson value, $Res Function(_ApiPerson) then) =
       __$ApiPersonCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {int id,
@@ -788,30 +762,22 @@ abstract class _ApiPerson implements ApiPerson {
 
   @override
   int get id;
-
   @override
   String get name;
-
   @override
   @JsonKey(name: "profile_path")
   String? get profilePath;
-
   @override
   String? get character;
-
   @override
   int? get order;
-
   @override
   String? get department;
-
   @override
   String? get job;
-
   @override
   @JsonKey(name: "credit_id")
   String get creditId;
-
   @override
   @JsonKey(ignore: true)
   _$ApiPersonCopyWith<_ApiPerson> get copyWith =>
@@ -824,7 +790,6 @@ abstract class _$ApiPersonEmptyCopyWith<$Res>
   factory _$ApiPersonEmptyCopyWith(
           _ApiPersonEmpty value, $Res Function(_ApiPersonEmpty) then) =
       __$ApiPersonEmptyCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {int id,
@@ -1122,30 +1087,22 @@ abstract class _ApiPersonEmpty implements ApiPerson {
 
   @override
   int get id;
-
   @override
   String get name;
-
   @override
   @JsonKey(name: "profile_path")
   String? get profilePath;
-
   @override
   String? get character;
-
   @override
   int? get order;
-
   @override
   String? get department;
-
   @override
   String? get job;
-
   @override
   @JsonKey(name: "credit_id")
   String get creditId;
-
   @override
   @JsonKey(ignore: true)
   _$ApiPersonEmptyCopyWith<_ApiPersonEmpty> get copyWith =>

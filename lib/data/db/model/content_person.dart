@@ -6,12 +6,8 @@ import 'package:movie_app_flutter/data/db/model/person_db.dart';
   tableName: 'content_person',
   primaryKeys: ['content_id', 'person_id', 'credit_id'],
   foreignKeys: [
-    ForeignKey(
-        childColumns: ['content_id'], parentColumns: ['id'], entity: ContentDb),
-    ForeignKey(
-        childColumns: ['person_id', 'credit_id'],
-        parentColumns: ['id', 'credit_id'],
-        entity: PersonDb),
+    ForeignKey(childColumns: ['content_id', 'is_movie'], parentColumns: ['id', 'is_movie'], entity: ContentDb),
+    ForeignKey(childColumns: ['person_id', 'credit_id'], parentColumns: ['id', 'credit_id'], entity: PersonDb),
   ],
 )
 class ContentPersonDb {
