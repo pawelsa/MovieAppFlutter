@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_app_flutter/data/repository/loading_status/stream_data.dart';
 import 'package:movie_app_flutter/data/view/content_detail_data.dart';
 import 'package:movie_app_flutter/pages/detail/detail_page.dart';
 import 'package:movie_app_flutter/resources/durations.dart';
@@ -11,8 +12,8 @@ class BaseTabbedPage extends ConsumerWidget {
   final StateProvider<int> pageProvider;
   final FutureProviderFamily<ContentDetailData, int> contentDetailProvider;
   final List<String> tabs;
-  final StreamProvider<List<ContentDetailData>> secondTabProvider;
-  final StreamProvider<List<ContentDetailData>> firstTabProvider;
+  final StreamProvider<StreamData<List<ContentDetailData>>> secondTabProvider;
+  final StreamProvider<StreamData<List<ContentDetailData>>> firstTabProvider;
 
   BaseTabbedPage({
     Key? key,
@@ -65,17 +66,26 @@ class BaseTabbedPage extends ConsumerWidget {
             onPageChanged: (page) => ref.read(pageProvider.notifier).state = page,
             children: providers.map((e) {
               return ref.watch(e).when(
-                    data: (list) {
-                      return ListView.builder(
-                        itemCount: list.length,
-                        itemBuilder: (context, index) {
-                          final item = list[index];
-                          return CardItem(
-                            onTap: () => _onCardTap(context, item),
-                            content: item,
-                            width: size.width,
-                          );
-                        },
+                    data: (streamData) {
+                      return Stack(
+                        children: [
+                          ListView.builder(
+                            itemCount: streamData.data.length,
+                            itemBuilder: (context, index) {
+                              final item = streamData.data[index];
+                              return CardItem(
+                                onTap: () => _onCardTap(context, item),
+                                content: item,
+                                width: size.width,
+                              );
+                            },
+                          ),
+                          if(streamData is LoadingData)
+                            Align(
+                              alignment: Alignment.center,
+                              child: CircularProgressIndicator(),
+                            ),
+                        ],
                       );
                     },
                     error: (e, stack) {

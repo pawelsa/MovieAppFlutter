@@ -7,6 +7,8 @@ import 'package:movie_app_flutter/data/db/dao/person_dao.dart';
 import 'package:movie_app_flutter/data/db/dao/tv_show_dao.dart';
 import 'package:movie_app_flutter/data/db/model/tv_show_db.dart';
 import 'package:movie_app_flutter/data/repository/content_repository.dart';
+import 'package:movie_app_flutter/data/repository/loading_status/loading_status.dart';
+import 'package:movie_app_flutter/data/repository/loading_status/stream_data.dart';
 import 'package:movie_app_flutter/data/repository/result.dart';
 import 'package:movie_app_flutter/data/view/content_data.dart';
 import 'package:movie_app_flutter/data/view/content_detail_data.dart';
@@ -20,22 +22,32 @@ final tvShowRepositoryProvider = Provider<TvShowRepository>((ref) {
 class TvShowRepository extends ContentRepository {
   final TvShowApi _tvShowApi;
   final TvShowDao _tvShowDao;
+  final LoadingStatus _topRatedLoadingStatus = LoadingStatus();
+  final LoadingStatus _popularLoadingStatus = LoadingStatus();
 
   TvShowRepository(this._tvShowApi, this._tvShowDao, PeopleDao peopleDao) : super(_tvShowDao, peopleDao, false);
 
   Future<Result> getPopular(int page) async {
+    _popularLoadingStatus.isLoading = true;
     final response = await _tvShowApi.getPopular(page);
     if (response is ContentListResponse) {
-      return _getTvShows(response, true);
+      final result = _getTvShows(response, true);
+      _popularLoadingStatus.isLoading = false;
+      return result;
     }
+    _popularLoadingStatus.isLoading = false;
     return ErrorResult(ErrorCause.noInternet());
   }
 
   Future<Result> getTopRated(int page) async {
+    _topRatedLoadingStatus.isLoading = true;
     final response = await _tvShowApi.getTopRated(page);
     if (response is ContentListResponse) {
-      return _getTvShows(response, false);
+      final result = _getTvShows(response, false);
+      _topRatedLoadingStatus.isLoading = false;
+      return result;
     }
+    _topRatedLoadingStatus.isLoading = false;
     return ErrorResult(ErrorCause.noInternet());
   }
 
@@ -70,12 +82,9 @@ class TvShowRepository extends ContentRepository {
     await saveContentInDb(content, director, stars, movieCredits, _tvShowDao.insertTvShow(dbTvShow));
   }
 
-  Stream<List<ContentDetailData>> observeDetailedTopRated() =>
-      _tvShowDao.observeAllTopRated().asyncMap(getDetailsFromDb);
+  DataStream<List<ContentDetailData>> observeDetailedTopRated() =>
+      _tvShowDao.observeAllTopRated().asyncMap(getDetailsFromDb).withLoading(_topRatedLoadingStatus);
 
-  Stream<List<ContentDetailData>> observeDetailedPopular() => _tvShowDao.observeAllPopular().asyncMap(getDetailsFromDb);
-
-  Stream<List<ContentData>> observeTopRated() => _tvShowDao.observeAllTopRated().map(getContentFromDb);
-
-  Stream<List<ContentData>> observePopular() => _tvShowDao.observeAllPopular().map(getContentFromDb);
+  DataStream<List<ContentDetailData>> observeDetailedPopular() =>
+      _tvShowDao.observeAllPopular().asyncMap(getDetailsFromDb).withLoading(_popularLoadingStatus);
 }

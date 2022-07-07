@@ -15,7 +15,6 @@ abstract class Api {
     Map<String, String>? headers,
   }) {
     uri = _prepareUri(uri);
-    debugPrint("Api.get: $uri");
 
     return http
         .get(uri, headers: headers)
@@ -23,7 +22,6 @@ abstract class Api {
   }
 
   ErrorResponse _handleOnError(e) {
-    debugPrint("Api._handleOnError: $e");
     if (e is SocketException) {
       return NoInternetResponse();
     } else if (e is TimeoutException) {
@@ -40,7 +38,6 @@ abstract class Api {
   }
 
   Response _handleResponse(http.Response response, Response Function(String body) mapper) {
-    debugPrint("Api._handleResponse: ${response.statusCode}");
     switch (response.statusCode) {
       case 200:
         return mapper(response.body);

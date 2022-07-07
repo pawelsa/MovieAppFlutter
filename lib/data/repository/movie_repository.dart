@@ -7,9 +7,12 @@ import 'package:movie_app_flutter/data/db/dao/movie_dao.dart';
 import 'package:movie_app_flutter/data/db/dao/person_dao.dart';
 import 'package:movie_app_flutter/data/db/model/movie_db.dart';
 import 'package:movie_app_flutter/data/repository/content_repository.dart';
+import 'package:movie_app_flutter/data/repository/loading_status/loading_status.dart';
+import 'package:movie_app_flutter/data/repository/loading_status/stream_data.dart';
 import 'package:movie_app_flutter/data/repository/result.dart';
 import 'package:movie_app_flutter/data/view/content_data.dart';
 import 'package:movie_app_flutter/data/view/content_detail_data.dart';
+import 'package:stream_transform/stream_transform.dart';
 
 final movieRepositoryProvider = Provider<MovieRepository>((ref) {
   final contentDao = ref.watch(movieDaoProvider);
@@ -20,23 +23,36 @@ final movieRepositoryProvider = Provider<MovieRepository>((ref) {
 class MovieRepository extends ContentRepository {
   final MovieApi _movieApi;
   final MovieDao _movieDao;
+  final LoadingStatus _popularMoviesLoadingStatus = LoadingStatus();
+  final LoadingStatus _upcomingMoviesLoadingStatus = LoadingStatus();
 
-  MovieRepository(this._movieApi, this._movieDao, PeopleDao peopleDao)
-      : super(_movieDao, peopleDao, true);
+  MovieRepository(this._movieApi, this._movieDao, PeopleDao peopleDao) : super(_movieDao, peopleDao, true);
 
-  Future<Result> getPopularMovies(int page) => _movieApi.getPopular(page).then((content) {
+  Future<Result> getPopularMovies(int page) {
+    _popularMoviesLoadingStatus.isLoading = true;
+    return _movieApi.getPopular(page).then((content) {
         if (content is ContentListResponse) {
-          return _getMoviesWithResp(content, true);
+          final result = _getMoviesWithResp(content, true);
+          _popularMoviesLoadingStatus.isLoading = false;
+          return result;
         }
+        _popularMoviesLoadingStatus.isLoading = false;
         return ErrorResult(ErrorCause.noInternet());
       });
+  }
 
-  Future<Result> getUpcomingMovies(int page) => _movieApi.getUpcoming(page).then((content) {
-        if (content is ContentListResponse) {
-          return _getMoviesWithResp(content, false);
-        }
-        return ErrorResult(ErrorCause.noInternet());
-      });
+  Future<Result> getUpcomingMovies(int page) {
+    _upcomingMoviesLoadingStatus.isLoading = true;
+    return _movieApi.getUpcoming(page).then((content) {
+      if (content is ContentListResponse) {
+        final result = _getMoviesWithResp(content, false);
+        _upcomingMoviesLoadingStatus.isLoading = false;
+        return result;
+      }
+      _upcomingMoviesLoadingStatus.isLoading = false;
+      return ErrorResult(ErrorCause.noInternet());
+    });
+  }
 
   Future<Result> _getMoviesWithResp(ContentListResponse content, bool arePopular) async {
     var order = (content.page - 1) * content.results.length;
@@ -66,12 +82,9 @@ class MovieRepository extends ContentRepository {
     await saveContentInDb(content, director, stars, movieCredits, _movieDao.insertMovie(dbMovie));
   }
 
-  Stream<List<ContentDetailData>> observeDetailedUpcoming() =>
-      _movieDao.observeAllUpcoming().asyncMap(getDetailsFromDb);
+  DataStream<List<ContentDetailData>> observeDetailedUpcoming() =>
+      _movieDao.observeAllUpcoming().asyncMap(getDetailsFromDb).withLoading(_upcomingMoviesLoadingStatus);
 
-  Stream<List<ContentDetailData>> observeDetailedPopular() => _movieDao.observeAllPopular().asyncMap(getDetailsFromDb);
-
-  Stream<List<ContentData>> observeUpcoming() => _movieDao.observeAllUpcoming().map(getContentFromDb);
-
-  Stream<List<ContentData>> observePopular() => _movieDao.observeAllPopular().map(getContentFromDb);
+  DataStream<List<ContentDetailData>> observeDetailedPopular() =>
+      _movieDao.observeAllPopular().asyncMap(getDetailsFromDb).withLoading(_popularMoviesLoadingStatus);
 }

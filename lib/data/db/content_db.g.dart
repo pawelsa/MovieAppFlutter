@@ -153,8 +153,11 @@ class _$MovieDao extends MovieDao {
         _movieDbInsertionAdapter = InsertionAdapter(
             database,
             'movie',
-            (MovieDb item) =>
-                <String, Object?>{'id': item.id, 'is_popular': item.isPopular ? 1 : 0, 'order': item.order}),
+            (MovieDb item) => <String, Object?>{
+                  'id': item.id,
+                  'is_popular': item.isPopular ? 1 : 0,
+                  'order': item.order
+                }),
         _contentDbInsertionAdapter = InsertionAdapter(
             database,
             'content',
@@ -270,17 +273,20 @@ class _$MovieDao extends MovieDao {
 
   @override
   Future<void> insertAll(List<ContentDb> content) async {
-    await _contentDbInsertionAdapter.insertList(content, OnConflictStrategy.replace);
+    await _contentDbInsertionAdapter.insertList(
+        content, OnConflictStrategy.replace);
   }
 
   @override
   Future<void> insert(ContentDb dbContent) async {
-    await _contentDbInsertionAdapter.insert(dbContent, OnConflictStrategy.replace);
+    await _contentDbInsertionAdapter.insert(
+        dbContent, OnConflictStrategy.replace);
   }
 
   @override
   Future<void> insertContentPersons(List<ContentPersonDb> moviePeople) async {
-    await _contentPersonDbInsertionAdapter.insertList(moviePeople, OnConflictStrategy.replace);
+    await _contentPersonDbInsertionAdapter.insertList(
+        moviePeople, OnConflictStrategy.replace);
   }
 }
 
@@ -290,8 +296,11 @@ class _$TvShowDao extends TvShowDao {
         _tvShowDbInsertionAdapter = InsertionAdapter(
             database,
             'tv_show',
-            (TvShowDb item) =>
-                <String, Object?>{'id': item.id, 'is_popular': item.isPopular ? 1 : 0, 'order': item.order}),
+            (TvShowDb item) => <String, Object?>{
+                  'id': item.id,
+                  'is_popular': item.isPopular ? 1 : 0,
+                  'order': item.order
+                }),
         _contentDbInsertionAdapter = InsertionAdapter(
             database,
             'content',
@@ -402,21 +411,25 @@ class _$TvShowDao extends TvShowDao {
 
   @override
   Future<void> insertTvShow(TvShowDb dbTvShow) async {
-    await _tvShowDbInsertionAdapter.insert(dbTvShow, OnConflictStrategy.replace);
+    await _tvShowDbInsertionAdapter.insert(
+        dbTvShow, OnConflictStrategy.replace);
   }
 
   @override
   Future<void> insertAll(List<ContentDb> content) async {
-    await _contentDbInsertionAdapter.insertList(content, OnConflictStrategy.replace);
+    await _contentDbInsertionAdapter.insertList(
+        content, OnConflictStrategy.replace);
   }
 
   @override
   Future<void> insert(ContentDb dbContent) async {
-    await _contentDbInsertionAdapter.insert(dbContent, OnConflictStrategy.replace);
+    await _contentDbInsertionAdapter.insert(
+        dbContent, OnConflictStrategy.replace);
   }
 
   @override
   Future<void> insertContentPersons(List<ContentPersonDb> moviePeople) async {
-    await _contentPersonDbInsertionAdapter.insertList(moviePeople, OnConflictStrategy.replace);
+    await _contentPersonDbInsertionAdapter.insertList(
+        moviePeople, OnConflictStrategy.replace);
   }
 }

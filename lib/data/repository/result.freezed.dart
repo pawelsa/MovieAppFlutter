@@ -42,7 +42,6 @@ mixin _$ErrorCause {
     required TResult Function() unknown,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? noInternet,
@@ -50,7 +49,6 @@ mixin _$ErrorCause {
     TResult Function()? unknown,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? noInternet,
@@ -59,7 +57,6 @@ mixin _$ErrorCause {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(NoInternetError value) noInternet,
@@ -67,7 +64,6 @@ mixin _$ErrorCause {
     required TResult Function(UnknownError value) unknown,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(NoInternetError value)? noInternet,
@@ -75,7 +71,6 @@ mixin _$ErrorCause {
     TResult Function(UnknownError value)? unknown,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NoInternetError value)? noInternet,
@@ -88,7 +83,9 @@ mixin _$ErrorCause {
 
 /// @nodoc
 abstract class $ErrorCauseCopyWith<$Res> {
-  factory $ErrorCauseCopyWith(ErrorCause value, $Res Function(ErrorCause) then) = _$ErrorCauseCopyWithImpl<$Res>;
+  factory $ErrorCauseCopyWith(
+          ErrorCause value, $Res Function(ErrorCause) then) =
+      _$ErrorCauseCopyWithImpl<$Res>;
 }
 
 /// @nodoc
@@ -96,21 +93,22 @@ class _$ErrorCauseCopyWithImpl<$Res> implements $ErrorCauseCopyWith<$Res> {
   _$ErrorCauseCopyWithImpl(this._value, this._then);
 
   final ErrorCause _value;
-
   // ignore: unused_field
   final $Res Function(ErrorCause) _then;
 }
 
 /// @nodoc
 abstract class $NoInternetErrorCopyWith<$Res> {
-  factory $NoInternetErrorCopyWith(NoInternetError value, $Res Function(NoInternetError) then) =
+  factory $NoInternetErrorCopyWith(
+          NoInternetError value, $Res Function(NoInternetError) then) =
       _$NoInternetErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
 class _$NoInternetErrorCopyWithImpl<$Res> extends _$ErrorCauseCopyWithImpl<$Res>
     implements $NoInternetErrorCopyWith<$Res> {
-  _$NoInternetErrorCopyWithImpl(NoInternetError _value, $Res Function(NoInternetError) _then)
+  _$NoInternetErrorCopyWithImpl(
+      NoInternetError _value, $Res Function(NoInternetError) _then)
       : super(_value, (v) => _then(v as NoInternetError));
 
   @override
@@ -129,7 +127,8 @@ class _$NoInternetError implements NoInternetError {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is NoInternetError);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is NoInternetError);
   }
 
   @override
@@ -210,14 +209,17 @@ abstract class NoInternetError implements ErrorCause {
 
 /// @nodoc
 abstract class $DatabaseSaveErrorCopyWith<$Res> {
-  factory $DatabaseSaveErrorCopyWith(DatabaseSaveError value, $Res Function(DatabaseSaveError) then) =
+  factory $DatabaseSaveErrorCopyWith(
+          DatabaseSaveError value, $Res Function(DatabaseSaveError) then) =
       _$DatabaseSaveErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$DatabaseSaveErrorCopyWithImpl<$Res> extends _$ErrorCauseCopyWithImpl<$Res>
+class _$DatabaseSaveErrorCopyWithImpl<$Res>
+    extends _$ErrorCauseCopyWithImpl<$Res>
     implements $DatabaseSaveErrorCopyWith<$Res> {
-  _$DatabaseSaveErrorCopyWithImpl(DatabaseSaveError _value, $Res Function(DatabaseSaveError) _then)
+  _$DatabaseSaveErrorCopyWithImpl(
+      DatabaseSaveError _value, $Res Function(DatabaseSaveError) _then)
       : super(_value, (v) => _then(v as DatabaseSaveError));
 
   @override
@@ -236,7 +238,8 @@ class _$DatabaseSaveError implements DatabaseSaveError {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is DatabaseSaveError);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is DatabaseSaveError);
   }
 
   @override
@@ -317,13 +320,16 @@ abstract class DatabaseSaveError implements ErrorCause {
 
 /// @nodoc
 abstract class $UnknownErrorCopyWith<$Res> {
-  factory $UnknownErrorCopyWith(UnknownError value, $Res Function(UnknownError) then) =
+  factory $UnknownErrorCopyWith(
+          UnknownError value, $Res Function(UnknownError) then) =
       _$UnknownErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$UnknownErrorCopyWithImpl<$Res> extends _$ErrorCauseCopyWithImpl<$Res> implements $UnknownErrorCopyWith<$Res> {
-  _$UnknownErrorCopyWithImpl(UnknownError _value, $Res Function(UnknownError) _then)
+class _$UnknownErrorCopyWithImpl<$Res> extends _$ErrorCauseCopyWithImpl<$Res>
+    implements $UnknownErrorCopyWith<$Res> {
+  _$UnknownErrorCopyWithImpl(
+      UnknownError _value, $Res Function(UnknownError) _then)
       : super(_value, (v) => _then(v as UnknownError));
 
   @override
@@ -342,7 +348,8 @@ class _$UnknownError implements UnknownError {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is UnknownError);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is UnknownError);
   }
 
   @override
@@ -483,7 +490,8 @@ mixin _$Result {
 
 /// @nodoc
 abstract class $ResultCopyWith<$Res> {
-  factory $ResultCopyWith(Result value, $Res Function(Result) then) = _$ResultCopyWithImpl<$Res>;
+  factory $ResultCopyWith(Result value, $Res Function(Result) then) =
+      _$ResultCopyWithImpl<$Res>;
 }
 
 /// @nodoc
@@ -497,14 +505,16 @@ class _$ResultCopyWithImpl<$Res> implements $ResultCopyWith<$Res> {
 
 /// @nodoc
 abstract class $SuccessfulResultCopyWith<$Res> {
-  factory $SuccessfulResultCopyWith(SuccessfulResult value, $Res Function(SuccessfulResult) then) =
+  factory $SuccessfulResultCopyWith(
+          SuccessfulResult value, $Res Function(SuccessfulResult) then) =
       _$SuccessfulResultCopyWithImpl<$Res>;
 }
 
 /// @nodoc
 class _$SuccessfulResultCopyWithImpl<$Res> extends _$ResultCopyWithImpl<$Res>
     implements $SuccessfulResultCopyWith<$Res> {
-  _$SuccessfulResultCopyWithImpl(SuccessfulResult _value, $Res Function(SuccessfulResult) _then)
+  _$SuccessfulResultCopyWithImpl(
+      SuccessfulResult _value, $Res Function(SuccessfulResult) _then)
       : super(_value, (v) => _then(v as SuccessfulResult));
 
   @override
@@ -523,7 +533,8 @@ class _$SuccessfulResult implements SuccessfulResult {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is SuccessfulResult);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is SuccessfulResult);
   }
 
   @override
@@ -598,16 +609,19 @@ abstract class SuccessfulResult implements Result {
 
 /// @nodoc
 abstract class $ErrorResultCopyWith<$Res> {
-  factory $ErrorResultCopyWith(ErrorResult value, $Res Function(ErrorResult) then) = _$ErrorResultCopyWithImpl<$Res>;
-
+  factory $ErrorResultCopyWith(
+          ErrorResult value, $Res Function(ErrorResult) then) =
+      _$ErrorResultCopyWithImpl<$Res>;
   $Res call({ErrorCause error});
 
   $ErrorCauseCopyWith<$Res> get error;
 }
 
 /// @nodoc
-class _$ErrorResultCopyWithImpl<$Res> extends _$ResultCopyWithImpl<$Res> implements $ErrorResultCopyWith<$Res> {
-  _$ErrorResultCopyWithImpl(ErrorResult _value, $Res Function(ErrorResult) _then)
+class _$ErrorResultCopyWithImpl<$Res> extends _$ResultCopyWithImpl<$Res>
+    implements $ErrorResultCopyWith<$Res> {
+  _$ErrorResultCopyWithImpl(
+      ErrorResult _value, $Res Function(ErrorResult) _then)
       : super(_value, (v) => _then(v as ErrorResult));
 
   @override
@@ -655,11 +669,13 @@ class _$ErrorResult implements ErrorResult {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, const DeepCollectionEquality().hash(error));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(error));
 
   @JsonKey(ignore: true)
   @override
-  $ErrorResultCopyWith<ErrorResult> get copyWith => _$ErrorResultCopyWithImpl<ErrorResult>(this, _$identity);
+  $ErrorResultCopyWith<ErrorResult> get copyWith =>
+      _$ErrorResultCopyWithImpl<ErrorResult>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -728,9 +744,9 @@ abstract class ErrorResult implements Result {
   const factory ErrorResult(ErrorCause error) = _$ErrorResult;
 
   ErrorCause get error;
-
   @JsonKey(ignore: true)
-  $ErrorResultCopyWith<ErrorResult> get copyWith => throw _privateConstructorUsedError;
+  $ErrorResultCopyWith<ErrorResult> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -798,23 +814,24 @@ mixin _$DataResult<T> {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $DataResultCopyWith<T, DataResult<T>> get copyWith => throw _privateConstructorUsedError;
+  $DataResultCopyWith<T, DataResult<T>> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $DataResultCopyWith<T, $Res> {
-  factory $DataResultCopyWith(DataResult<T> value, $Res Function(DataResult<T>) then) =
+  factory $DataResultCopyWith(
+          DataResult<T> value, $Res Function(DataResult<T>) then) =
       _$DataResultCopyWithImpl<T, $Res>;
-
   $Res call({T data});
 }
 
 /// @nodoc
-class _$DataResultCopyWithImpl<T, $Res> implements $DataResultCopyWith<T, $Res> {
+class _$DataResultCopyWithImpl<T, $Res>
+    implements $DataResultCopyWith<T, $Res> {
   _$DataResultCopyWithImpl(this._value, this._then);
 
   final DataResult<T> _value;
-
   // ignore: unused_field
   final $Res Function(DataResult<T>) _then;
 
@@ -832,18 +849,21 @@ class _$DataResultCopyWithImpl<T, $Res> implements $DataResultCopyWith<T, $Res> 
 }
 
 /// @nodoc
-abstract class $SuccessfulDataResultCopyWith<T, $Res> implements $DataResultCopyWith<T, $Res> {
-  factory $SuccessfulDataResultCopyWith(SuccessfulDataResult<T> value, $Res Function(SuccessfulDataResult<T>) then) =
+abstract class $SuccessfulDataResultCopyWith<T, $Res>
+    implements $DataResultCopyWith<T, $Res> {
+  factory $SuccessfulDataResultCopyWith(SuccessfulDataResult<T> value,
+          $Res Function(SuccessfulDataResult<T>) then) =
       _$SuccessfulDataResultCopyWithImpl<T, $Res>;
-
   @override
   $Res call({T data});
 }
 
 /// @nodoc
-class _$SuccessfulDataResultCopyWithImpl<T, $Res> extends _$DataResultCopyWithImpl<T, $Res>
+class _$SuccessfulDataResultCopyWithImpl<T, $Res>
+    extends _$DataResultCopyWithImpl<T, $Res>
     implements $SuccessfulDataResultCopyWith<T, $Res> {
-  _$SuccessfulDataResultCopyWithImpl(SuccessfulDataResult<T> _value, $Res Function(SuccessfulDataResult<T>) _then)
+  _$SuccessfulDataResultCopyWithImpl(SuccessfulDataResult<T> _value,
+      $Res Function(SuccessfulDataResult<T>) _then)
       : super(_value, (v) => _then(v as SuccessfulDataResult<T>));
 
   @override
@@ -884,12 +904,14 @@ class _$SuccessfulDataResult<T> implements SuccessfulDataResult<T> {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, const DeepCollectionEquality().hash(data));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(data));
 
   @JsonKey(ignore: true)
   @override
   $SuccessfulDataResultCopyWith<T, SuccessfulDataResult<T>> get copyWith =>
-      _$SuccessfulDataResultCopyWithImpl<T, SuccessfulDataResult<T>>(this, _$identity);
+      _$SuccessfulDataResultCopyWithImpl<T, SuccessfulDataResult<T>>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -959,17 +981,18 @@ abstract class SuccessfulDataResult<T> implements DataResult<T> {
 
   @override
   T get data;
-
   @override
   @JsonKey(ignore: true)
-  $SuccessfulDataResultCopyWith<T, SuccessfulDataResult<T>> get copyWith => throw _privateConstructorUsedError;
+  $SuccessfulDataResultCopyWith<T, SuccessfulDataResult<T>> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ErrorDataResultCopyWith<T, $Res> implements $DataResultCopyWith<T, $Res> {
-  factory $ErrorDataResultCopyWith(ErrorDataResult<T> value, $Res Function(ErrorDataResult<T>) then) =
+abstract class $ErrorDataResultCopyWith<T, $Res>
+    implements $DataResultCopyWith<T, $Res> {
+  factory $ErrorDataResultCopyWith(
+          ErrorDataResult<T> value, $Res Function(ErrorDataResult<T>) then) =
       _$ErrorDataResultCopyWithImpl<T, $Res>;
-
   @override
   $Res call({T data, ErrorCause error});
 
@@ -977,9 +1000,11 @@ abstract class $ErrorDataResultCopyWith<T, $Res> implements $DataResultCopyWith<
 }
 
 /// @nodoc
-class _$ErrorDataResultCopyWithImpl<T, $Res> extends _$DataResultCopyWithImpl<T, $Res>
+class _$ErrorDataResultCopyWithImpl<T, $Res>
+    extends _$DataResultCopyWithImpl<T, $Res>
     implements $ErrorDataResultCopyWith<T, $Res> {
-  _$ErrorDataResultCopyWithImpl(ErrorDataResult<T> _value, $Res Function(ErrorDataResult<T>) _then)
+  _$ErrorDataResultCopyWithImpl(
+      ErrorDataResult<T> _value, $Res Function(ErrorDataResult<T>) _then)
       : super(_value, (v) => _then(v as ErrorDataResult<T>));
 
   @override
@@ -1035,8 +1060,10 @@ class _$ErrorDataResult<T> implements ErrorDataResult<T> {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(data), const DeepCollectionEquality().hash(error));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(data),
+      const DeepCollectionEquality().hash(error));
 
   @JsonKey(ignore: true)
   @override
@@ -1107,14 +1134,14 @@ class _$ErrorDataResult<T> implements ErrorDataResult<T> {
 }
 
 abstract class ErrorDataResult<T> implements DataResult<T> {
-  const factory ErrorDataResult(T data, ErrorCause error) = _$ErrorDataResult<T>;
+  const factory ErrorDataResult(T data, ErrorCause error) =
+      _$ErrorDataResult<T>;
 
   @override
   T get data;
-
   ErrorCause get error;
-
   @override
   @JsonKey(ignore: true)
-  $ErrorDataResultCopyWith<T, ErrorDataResult<T>> get copyWith => throw _privateConstructorUsedError;
+  $ErrorDataResultCopyWith<T, ErrorDataResult<T>> get copyWith =>
+      throw _privateConstructorUsedError;
 }
